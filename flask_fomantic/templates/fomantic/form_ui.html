@@ -1,0 +1,263 @@
+{#  This file was part of Flask-Bootstrap and was modified under the terms of
+ its BSD License. Copyright (c) 2013, Marc Brinkmann. All rights reserved. #}
+
+{# This file was part of Bootstrap-Flask and was modified under the terms of
+ its MIT License. Copyright (c) 2018 Grey Li. All rights reserved.#}
+
+{% macro render_ui_hidden_errors(form, hiddens=True) %}
+  {%- if form.errors %}
+    <div class="ui error message">
+        <div class="header">Action Forbidden</div>
+    {%- for fieldname, errors in form.errors.items() %}
+      {%- if fomantic_is_hidden_field(form[fieldname]) and hiddens or
+        not fomantic_is_hidden_field(form[fieldname]) and hiddens != 'only' %}
+            <ul class="list">
+                {%- for error in errors %}
+                    <li>{{error}}</li>
+                {%- endfor %}
+            </ul>
+      {%- endif %}
+    {%- endfor %}
+    </div>
+  {%- endif %}
+{%- endmacro %}
+
+{% macro render_ui_field(field,
+                    form_type="basic",
+                    horizontal_columns=('sixteen', 'sixteen', 'sixteen'),
+                    button_map={},
+                    inverted=None,
+                    button_style='',
+                    button_size='') %}
+
+    {# this is a workaround hack for the more straightforward-code of just passing required=required parameter. older versions of wtforms do not have
+       the necessary fix for required=False attributes, but will also not set the required flag in the first place. we skirt the issue using the code below #}
+    {% if field.flags.required and not required in kwargs %}
+        {% set kwargs = dict(required=True, **kwargs) %}
+    {% endif %}
+
+    {# combine render_kw class or class/class_ argument with Bootstrap classes #}
+    {% set render_kw_class = '' + field.render_kw.class if field.render_kw.class else '' %}
+    {% set class = kwargs.pop('class', '') or kwargs.pop('class_', '') %}
+    {% if class %}
+        {# override render_kw class when class/class_ presents as keyword argument #}
+        {% set render_kw_class = '' %}
+        {% set render_kw_class_ = '' %}
+        {% set class = '' + class %}
+    {% endif %}
+    {% set extra_classes = render_kw_class + class %}
+
+    {% if field.widget.input_type == 'checkbox' %}
+        {% set field_kwargs = kwargs %}
+            <div class="ui field">
+                <div class="ui checkbox">
+                    {{ field(class="%s" % extra_classes, **field_kwargs)|safe }}
+                    {{ field.label(for=field.id)|safe }}
+                </div>
+                {% if field.description -%}
+                    <small style="margin-left:0.1in; font-size: small;">{{ field.description|safe }}</small>
+                {%- endif %}
+            </div>
+        {%- if field.errors %}
+            {%- for error in field.errors %}
+                <div class="ui error message">
+                    <div class="header">Action Forbidden</div>
+                    <p>{{error}}</p>
+                </div>
+            {%- endfor %}
+        {%- endif %}
+    {%- elif field.type == 'RadioField' -%}
+        {# note: A cleaner solution would be rendering depending on the widget,
+        this is just a hack for now, until I can think of something better #}
+        <div class="{% if form_type == "inline" %}inline{%else%}grouped{% endif %} fields">
+            {%- if inverted %}
+                {{field.label(style="color: #FFFFFF;")|safe}}
+            {%- else -%}
+                {{field.label()|safe}}
+            {%- endif %}
+            
+            {% for item in field -%}
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        {{item(**kwargs)|safe}}
+                        {{item.label(for=item.id)|safe}}
+                    </div>
+                    {% if field.description -%}
+                        <small style="margin-left:0.1in; font-size: small;">{{ field.description|safe }}</small>
+                    {%- endif %}
+                </div>
+            {% endfor %}
+        </div>
+        {%- if field.errors %}
+            {%- for error in field.errors %}
+                <div class="ui error message">
+                    <div class="header">Action Forbidden</div>
+                    <p>{{error}}</p>
+                </div>
+            {%- endfor %}
+        {%- endif %}
+    {%- elif field.type == 'SubmitField' -%}
+        {# deal with jinja scoping issues? #}
+        {% set field_kwargs = kwargs %}
+        {# note: same issue as above - should check widget, not field type #}
+            {% set default_button_style = button_style or config.FOMANTIC_BUTTON_STYLE %}
+            {% set default_button_size = button_size or config.FOMANTIC_BUTTON_SIZE %}
+            {{ field(class='%s ui %s button %s' % (default_button_size, button_map.get(field.name, default_button_style), extra_classes), **field_kwargs) }}
+    {%- elif field.type in ['CSRFTokenField', 'HiddenField'] -%}
+        {{ field()|safe }}
+    {%- elif field.type in ['FormField', 'FieldList'] -%}
+        {# note: FormFields are tricky to get right and complex setups requiring
+   these are probably beyond the scope of what this macro tries to do.
+   the code below ensures that things don't break horribly if we run into
+   one, but does not try too hard to get things pretty. #}
+        <fieldset class="field">
+            <legend>{{ field.label }}</legend>
+            {%- for subfield in field %}
+                {% if not fomantic_is_hidden_field(subfield) -%}
+                    {{ render_ui_field(subfield,
+                      form_type=form_type,
+                      horizontal_columns=horizontal_columns,
+                      button_map=button_map) }}
+                {%- endif %}
+            {%- endfor %}
+        </fieldset>
+    {% else -%}
+      <div class="{% if form_type == "inline" %}inline fields{% else%}field{% endif -%}{%- if field.flags.required %} required{% endif -%}">
+      {%- if form_type == "inline" %}
+          {{field.label|safe}}
+          {% if field.type == 'FileField' %}
+            {{field(class="%s" % extra_classes, **kwargs)|safe}}
+          {% else %}
+            {{field(class="%s" % extra_classes, **kwargs)|safe}}
+          {% endif %}
+          {% if field.description -%}
+                    <small style="margin-left:0.1in; font-size: small;">{{ field.description|safe }}</small>
+          {%- endif %}
+      {%- else -%}
+          {{field.label|safe}}
+          {% if field.type == 'FileField' %}
+            {{field(class="%s" % extra_classes, **kwargs)|safe}}
+          {% else %}
+            {{field(class="%s" % extra_classes, **kwargs)|safe}}
+          {% endif %}
+          {% if field.description -%}
+              <small style="margin-left:0.1in; font-size: small;">{{ field.description|safe }}</small>
+          {%- endif %}
+        {%- if field.errors %}
+          {%- for error in field.errors %}
+            <div class="ui error message">
+              <div class="header">Action Forbidden</div>
+              <p>{{error}}</p>
+            </div>
+          {%- endfor %}
+        {%- endif %}
+      {%- endif %}
+  </div>
+    {% endif %}
+{% endmacro %}
+
+{# valid form types are "basic" and "inline" #}
+{% macro render_ui_form(form,
+                    action="",
+                    method="post",
+                    inverted=None,
+                    extra_classes=None,
+                    role="form",
+                    form_type="basic",
+                    horizontal_columns=('sixteen', 'sixteen', 'sixteen'),
+                    enctype=None,
+                    button_map={},
+                    button_style="",
+                    button_size="",
+                    id="",
+                    novalidate=False,
+                    render_kw={},
+                    form_title=None
+                    ) %}
+    {#-
+action="" is what we want, from http://www.ietf.org/rfc/rfc2396.txt:
+
+4.2. Same-document References
+
+   A URI reference that does not contain a URI is a reference to the
+   current document.  In other words, an empty URI reference within a
+   document is interpreted as a reference to the start of that document,
+   and a reference containing only a fragment identifier is a reference
+   to the identified fragment of that document.  Traversal of such a
+   reference should not result in an additional retrieval action.
+   However, if the URI reference occurs in a context that is always
+   intended to result in a new request, as in the case of HTML's FORM
+   element, then an empty URI reference represents the base URI of the
+   current document and should be replaced by that URI when transformed
+   into a request.
+
+ -#}
+    {#- if any file fields are inside the form and enctype is automatic, adjust
+    if file fields are found. could really use the equalto test of jinja2
+    here, but latter is not available until 2.8
+
+    warning: the code below is guaranteed to make you cry =(
+#}
+    {%- set _enctype = [] %}
+    {%- if enctype is none -%}
+        {%- for field in form %}
+            {%- if field.type in ['FileField', 'MultipleFileField'] %}
+                {#- for loops come with a fairly watertight scope, so this list-hack is
+          used to be able to set values outside of it #}
+                {%- set _ = _enctype.append('multipart/form-data') -%}
+            {%- endif %}
+        {%- endfor %}
+    {%- else %}
+        {% set _ = _enctype.append(enctype) %}
+    {%- endif %}
+    <form{%- if action != None %} action="{{ action }}"{% endif -%}
+            {%- if id %} id="{{ id }}"{% endif -%}
+            {%- if method %} method="{{ method }}"{% endif %}
+            class="ui form error
+{%- if extra_classes %} {{ extra_classes }}{% endif -%}{%- if inverted %} inverted{% endif -%}{%- if form_type == "inline" %} inline{% endif -%}"
+            {%- if _enctype[0] %} enctype="{{ _enctype[0] }}"{% endif -%}
+            {%- if role %} role="{{ role }}"{% endif -%}
+            {%- if novalidate %} novalidate{% endif -%}
+            {%- if render_kw %} {{ render_kw|xmlattr }}{% endif -%}>
+        {{ form.hidden_tag() }}
+        {%- if form_title != None %}
+            <h4 class="ui dividing header {%- if inverted %} inverted{% endif -%}">
+                {{form_title}}
+            </h4>
+        {% endif -%}
+        {%- for field in form %}
+            {% if not fomantic_is_hidden_field(field) -%}
+                {{ render_ui_field(field,
+                    form_type=form_type,
+                    inverted=inverted,
+                    horizontal_columns=horizontal_columns,
+                    button_map=button_map,
+                    button_style=button_style,
+                    button_size=button_size) }}
+            {%- endif %}
+        {%- endfor %}
+        {{ render_ui_hidden_errors(form) }}
+    </form>
+{%- endmacro %}
+
+{% macro render_ui_field_row(fields,
+                             row_class={
+                                "number":[
+                                            "one",
+                                            "two",
+                                            "three",
+                                            "four",
+                                            "five",
+                                            "six",
+                                            "seven",
+                                            "eight",
+                                            "nine",
+                                            "ten"
+                                        ]
+                                    }) %}
+    <div class="{{row_class["number"][fields|length - 1]}} fields">
+        {% for field in fields %}
+            {{ render_ui_field(field) }}
+        {% endfor %}
+    </div>
+{% endmacro %}

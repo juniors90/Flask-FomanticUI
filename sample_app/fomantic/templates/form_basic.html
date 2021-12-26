@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% from "fomantic/form_ui.html" import render_ui_form, render_ui_field, render_ui_field_row %} {% block
+content %}
+<h1 class="ui center">Flask Semantic UI 2.4.2 - Demo Application</h1>
+
+<div class="container">
+  <h2>This is the sample form (basic)</h2>
+  {{ render_ui_form(form, form_title='Title for Shipping Information',
+  button_map={'submit_button': 'primary'}) }}
+  <h2>This is the sample form (inline basic)</h2>
+  {{ render_ui_form(form, form_title='Title for Shipping Information',
+  form_type='inline', button_map={'submit_button': 'primary'}) }}
+  <h2>And as a vertical inverted form</h2>
+  <div class="ui inverted segment">
+    {{ render_ui_form(form, form_title='Title for Shipping Information',
+    inverted=True, button_map={'submit_button': 'primary'})}}
+  </div>
+  <h2>The same form, inline inverted form</h2>
+  <div class="ui inverted segment">
+    {{ render_ui_form(form, form_title='Change extra_classes for inverted',
+    form_type='inline', inverted=True, button_map={'submit_button':
+    'primary'}) }}
+  </div>
+  <h2>The same form field</h2>
+  <form class="ui form" method="post">
+    {{ form.csrf_token() }}
+    <div class="two fields">
+    {{ render_ui_field(form.username) }}
+    {{ render_ui_field(form.password) }}
+    </div>
+    {{ render_ui_field(form.submit) }}
+    {{ render_ui_field(form.remember) }}
+  </form>
+  <h2>The same form field row</h2>
+  <form class="ui form" method="post">
+    {{ form.csrf_token }}
+    {{ render_ui_field_row([form.username, form.password]) }}
+    {{ render_ui_field(form.submit) }}
+    {{ render_ui_field(form.remember) }}
+  </form>
+  <h2>Test FormField and FormField</h2>
+  <h2>Telephone Form</h2>
+  {{ render_ui_form(telephone_form) }}
+
+  <h2>Telephone Form</h2>
+  {{ render_ui_form(telephone_form, form_type='inline') }}
+
+  <h2>IM Form</h2>
+  {{ render_ui_form(im_form) }}
+
+  <h2>Contact Form</h2>
+  {{ render_ui_form(contact_form) }}
+</div>
+{% endblock %}

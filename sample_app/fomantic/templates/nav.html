@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% from 'fomantic/nav.html' import render_ui_nav_item, render_ui_breadcrumb_item %}
+
+{% block content %}
+    <h2>Render Navbar item with render_ui_nav_item</h2>
+    <pre>{% raw %}
+{{ render_ui_nav_item('test_form', 'Form') }}
+{{ render_ui_nav_item('test_nav', 'Nav') }}
+{{ render_ui_nav_item('test_pagination', 'Pagination') }}
+{{ render_ui_nav_item('test_static', 'Static') }}
+{{ render_ui_nav_item('test_flash', 'Flash Messages') }}
+{% endraw %}</pre>
+    <div class="ui attached stackable menu">
+        {{ render_ui_nav_item('index', 'Home', 'home', 'teal') }}
+        {{ render_ui_nav_item('test_form', 'Form', 'envelope outline', 'teal') }}
+        {{ render_ui_nav_item('test_nav', 'Nav', 'map outline', 'teal') }}
+        {{ render_ui_nav_item('test_pagination', 'Pagination', 'sticky note outline', 'teal') }}
+        <div class="right item">
+            <div class="ui input">
+                <input type="text" placeholder="Search..." />
+            </div>
+        </div>
+    </div>
+
+    <h2>Render Breadcrumb item with render_ui_breadcrumb_item</h2>
+<pre>{% raw %}
+{{ render_ui_breadcrumb_item('test_form', 'Form') }}
+{{ render_ui_breadcrumb_item('test_nav', 'Nav') }}
+{{ render_ui_breadcrumb_item('test_pagination', 'Pagination') }}
+{{ render_ui_breadcrumb_item('test_flash', 'Flash Messages') }}
+{% endraw %}</pre>
+<nav class="ui breadcrumb">
+    {{ render_ui_breadcrumb_item('test_form', 'Form') }}
+    {{ render_ui_breadcrumb_item('test_nav', 'Nav') }}
+    {{ render_ui_breadcrumb_item('test_pagination', 'Pagination') }}
+    {{ render_ui_breadcrumb_item('test_flash', 'Flash Messages') }}
+</nav>
+{% endblock %}

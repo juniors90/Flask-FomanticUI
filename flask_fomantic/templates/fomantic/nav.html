@@ -1,0 +1,28 @@
+{#  This file was part of Flask-Bootstrap and was modified under the terms of
+ its BSD License. Copyright (c) 2013, Marc Brinkmann. All rights reserved. #}
+
+{# This file was part of Bootstrap-Flask and was modified under the terms of
+ its MIT License. Copyright (c) 2018 Grey Li. All rights reserved.#}
+ 
+<!-- Highlight the current tab -->
+{% macro render_ui_nav_item(endpoint, text, iname, color=None) %}
+	{% if request.endpoint is not none %}
+		{% if request.endpoint.endswith(endpoint) %}
+		    <a class="active{% if color %} {{ color }}{% endif %} item" href="{{ url_for(endpoint) }}"><i class="{{ iname }} icon"></i>{{ text }}</a>
+		{% else %}
+		    <a class="item" href="{{ url_for(endpoint, **kwargs) }}"><i class="{{ iname }} icon"></i>{{ text }}</a>
+		{% endif %}
+	{% else %}
+    	    <a class="item" href="{{ url_for(endpoint, **kwargs) }}"><i class="{{ iname }} icon"></i>{{ text }}</a>
+	{% endif %}
+{% endmacro %}
+
+{% macro render_ui_breadcrumb_item(endpoint, text, icon='right chevron') %}
+{% set active = True if request.endpoint and request.endpoint == endpoint else False %}
+        {% if active %}
+            <a class="active section">{{ text }}</a>
+        {% else %}
+            <a class="section" href="{{ url_for(endpoint, **kwargs) }}">{{ text }}</a>
+        {% endif %}
+            <i class="{{icon}} icon divider"></i>
+{% endmacro %}

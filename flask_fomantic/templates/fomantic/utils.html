@@ -1,0 +1,84 @@
+{#  This file was part of Flask-Bootstrap and was modified under the terms of
+ its BSD License. Copyright (c) 2013, Marc Brinkmann. All rights reserved. #}
+
+{# This file was part of Bootstrap-Flask and was modified under the terms of
+ its MIT License. Copyright (c) 2018 Grey Li. All rights reserved.#}
+
+{% macro render_ui_messages(messages=None, title=None, container=True, transform={
+  'critical': 'danger',
+  'error': 'danger',
+  'info': 'info',
+  'warning': 'warning',
+  'debug': 'info',
+  'notset': 'info',
+  'message': 'info',
+  'success': 'info',
+  'list': 'info'
+}, default_category=config.FOMANTIC_MSG_CATEGORY, dismissible=False) -%}
+
+<!-- Message flashing -->
+{% with messages = messages or get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% if container -%}
+        <!-- begin message block -->
+			<div class="ui text container">
+		{% endif %}
+			{% for category, message in messages %}
+				<div class="ui{% if category == 'debug' %} floating{% elif category in ['dark'] %} black{% elif category in ['critical','danger'] %} error{% else %} {{ category }}{% endif %} message">
+					{% if dismissible %}<i class="close icon"></i>{% endif %}
+						<div class="header">{% if category in ['dark','danger','debug', 'light','critical', 'error', 'info','warning', 'success', 'secondary', 'primary'] %}{{ category.title() }}: {{title}}{% else %}{{title}}{% endif %}</div>
+							{% if category == 'list' %}
+							    {% for msg in message %}
+							        <ul class="list">
+							            <li>{{msg}}:</li>
+							        </ul>
+								{% endfor %}
+							{% else %}
+							    <p>{{ message }}</p>
+							{% endif %}
+						</div>
+					{% endfor %}
+		{% if container %}
+			</div>
+		<!-- end message block -->
+		{% endif -%}
+	{% endif %}
+{% endwith %}
+<!-- end Message flashing -->
+{% endmacro -%}
+
+{% macro render_ui_icon(type=None, color=config.FOMANTIC_ICON_COLOR) -%}
+{% set fomantic_colors =  ["primary", "secondary", "red", "orange", "yellow", "olive", "green", "teal", "blue", "violet", "purple", "pink","brown", "grey", "black"] %}
+<i class="{% if color in fomantic_colors %}{{ type + ' ' + color}}{% else %}{{ type }}{% endif %} icon"{% if color %}{% if not color in fomantic_colors %} style="color: {{ color }}"{% endif %}{% endif %}></i>
+{%- endmacro %}
+
+{% macro form_button(url, content, method="post", class_buttton="ui submit button") -%}
+<form class="ui form error" style="display: inline;" action="{{url}}" method="{{method}}">
+    <button class="{{class_buttton|safe}}">
+	    {{content}}
+	</button>
+</form>
+{%- endmacro %}
+
+
+
+{% macro render_static(type, filename_or_url, local=True) %}
+    {% if local -%}{% set filename_or_url = url_for('static', filename=filename_or_url) %}{%- endif %}
+    {% if type == 'css' -%}
+        <link rel="stylesheet" href="{{ filename_or_url }}" type="text/css">
+    {%- elif type == 'js' -%}
+        <script type="text/javascript" src="{{ filename_or_url }}"></script>
+    {%- elif type == 'icon' -%}
+        <link rel="icon" href="{{ filename_or_url }}">
+    {%- endif %}
+{% endmacro %}
+
+{% macro arg_url_for(endpoint, base) %}
+   {# calls url_for() with a given endpoint and **base as the parameters,
+   additionally passing on all keyword_arguments (may overwrite existing ones)
+ #}
+    {%- with kargs = base.copy() -%}
+        {%- do kargs.update(kwargs) -%}
+        {{ url_for(endpoint, **kargs) }}
+    {%- endwith %}
+{%- endmacro %}

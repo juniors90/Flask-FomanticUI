@@ -1,0 +1,28 @@
+include LICENSE
+include README.md
+recursive-include flask_fomantic *.css
+recursive-include flask_fomantic *.eot
+recursive-include flask_fomantic *.html
+recursive-include flask_fomantic *.js
+recursive-include flask_fomantic *.map
+recursive-include flask_fomantic *.otf
+recursive-include flask_fomantic *.png
+recursive-include flask_fomantic *.py
+recursive-include flask_fomantic *.svg
+recursive-include flask_fomantic *.ttf
+recursive-include flask_fomantic *.woff
+recursive-include flask_fomantic *.woff2
+include CHANGELOG.rst
+
+
+exclude tox.ini
+exclude .docstr.yaml
+exclude .readthedocs.yaml
+exclude pyproject.toml
+exclude *.model 
+recursive-exclude tests *
+recursive-exclude .github *
+recursive-exclude sample_app *
+recursive-exclude requirements *
+recursive-exclude docs *
+recursive-exclude res *

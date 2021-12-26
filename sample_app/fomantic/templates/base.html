@@ -1,0 +1,84 @@
+{% from 'fomantic/nav.html' import render_ui_nav_item %}
+{% from 'fomantic/utils.html' import render_ui_messages %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Flask-SematicUI Demo Application</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    {{ fomantic.load_css() }}
+    <style type="text/css">
+        #alert {
+            display: 'block';
+        }
+        pre {
+            background: #ddd;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    
+        <div class="ui attached stackable menu">
+                {{ render_ui_nav_item('index', 'Home', 'home', 'teal') }}
+                <div class="ui simple dropdown teal item">
+                    Form Types<i class="dropdown icon"></i>
+                    <div class="menu">
+                        {{ render_ui_nav_item('test_form', 'Form Basic', 'mail', 'teal') }}
+                        {{ render_ui_nav_item('test_form_inline', 'Form Inline', 'mail', 'teal') }}
+                        {{ render_ui_nav_item('test_form_inline_inverted', 'Form Inline Inverted', 'mail', 'teal') }}
+                        {{ render_ui_nav_item('test_form_inverted', 'Form Inverted', 'mail', 'teal') }}
+                    </div>
+                </div>
+                {{ render_ui_nav_item('test_nav', 'Nav', 'list', 'teal') }}
+                {{ render_ui_nav_item('test_pagination', 'Pagination', 'arrows alternate horizontal', 'teal') }}
+                {{ render_ui_nav_item('test_flash', 'Flash Messages', 'envelope', 'teal') }}
+                {{ render_ui_nav_item('test_table', 'Table', 'table', 'teal') }}
+                {{ render_ui_nav_item('test_icon', 'Icon', 'code', 'teal') }}
+                
+                <div class="ui simple dropdown teal item">
+                    Sample dropdown <i class="dropdown icon"></i>
+                    <div class="menu">
+                    <a class="item" href="#" target="_blank"><i class="file code outline icon"></i>Documentation</a>
+                    <a class="item" href="#" target="_blank"><i class="file code icon"></i>Semantic UI Docs</a>
+                    <a class="item" href="https://github.com/juniors90/Flask-SemanticUI" target="_blank"><i class="github icon"></i>GitHub</a>
+                </div>
+                </div>
+    
+                <div class="right item">
+                    <div class="ui input">
+                        <input type="text" placeholder="Search..." />
+                    </div>
+                </div>
+        </div>
+    
+    <main class="ui text container" style="padding-top: 1em; padding-bottom: 1em;">
+        <div id="alert">
+        {{ render_ui_messages(container=False, dismissible=True, title="title") }}
+        {% block content %}{% endblock %}
+        </div>
+    </main>
+    
+    <footer class="ui text center">
+        {% block footer %}
+            <small> &copy; 2021–<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/juniors90">Juniors90 </a>
+            </small>
+        {% endblock %}
+    </footer>
+
+    {{ fomantic.load_js() }}
+    <script>
+    window.onload = function(){
+        let elements= document.getElementsByClassName('close');
+        for(let el of elements) {
+            el.addEventListener("click", dismissibleItem);
+        };
+    };
+    function dismissibleItem(){
+      document.getElementById('alert').style.display='none';
+    };
+    </script>
+  </body>
+</body>
+</html>

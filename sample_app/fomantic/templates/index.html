@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Flask-SematicUI Demo Application</h1>
+<a target="_blank" href="https://codecov.io/gh/juniors90/Flask-SemanticUI">
+    <img src="https://codecov.io/gh/juniors90/Flask-SemanticUI/branch/main/graph/badge.svg?token=V03GVOHP77"/>
+</a>
+<div class="ui list">
+  <div class="item">
+    <i class="users icon"></i>
+    <div class="content">
+      <a href="{{ url_for('test_form') }}">Form</a>
+    </div>
+  </div>
+  <div class="item">
+    <i class="users icon"></i>
+    <div class="content">
+      <a href="{{ url_for('test_nav') }}">Nav</a>
+    </div>
+  </div>
+  <div class="item">
+    <i class="users icon"></i>
+    <div class="content">
+      <a href="{{ url_for('test_pagination') }}">Pagination</a>
+    </div>
+  </div>
+  <div class="item">
+    <i class="users icon"></i>
+    <div class="content">
+      <a href="{{ url_for('test_flash') }}">Flash Messages</a>
+    </div>
+  </div>
+  <div class="item">
+    <i class="marker icon"></i>
+    <div class="content">
+      <a href="{{ url_for('test_table') }}">Table</a>
+    </div>
+  </div>
+  <div class="item">
+    <i class="mail icon"></i>
+    <div class="content">
+      <a href="{{ url_for('test_icon') }}">Icon</a>
+    </div>
+  </div>
+  <div class="item">
+    <i class="linkify icon"></i>
+    <div class="content">
+      <a href="http://www.semantic-ui.com">semantic-ui.com</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

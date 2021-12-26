@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% from 'fomantic/utils.html' import render_ui_icon %}
+
+{% block content %}
+    <h2>Icon</h2>
+    <pre>{% raw %}{{ render_ui_icon('heart', 'primary') }}{% endraw %}</pre>
+    Output: {{ render_ui_icon('heart', 'primary') }}
+    <h2>Icon with custom size</h2>
+    <pre>{% raw %}{{ render_ui_icon('heart', 'primary') }}{% endraw %}</pre>
+    Output: {{ render_ui_icon('heart', 'primary') }}
+    <h2>Icon with custom size and Semantic color</h2>
+    <pre>{% raw %}{{ render_ui_icon('heart', 'teal') }}{% endraw %}</pre>
+    Output: {{ render_ui_icon('heart', 'teal') }}
+    <h2>Icon with custom size and custom color</h2>
+    <pre>{% raw %}{{ render_ui_icon('heart', 'red') }}{% endraw %}</pre>
+    Output: {{ render_ui_icon('heart', 'red') }}
+    <h2>Button example</h2>
+    <button class="ui labeled primary icon button">
+        {{ render_ui_icon('pause') }}Pause
+    </button>
+    <button class="ui right labeled red icon button">
+        {{ render_ui_icon('right arrow') }}Next
+    </button>
+    <div class="ui icon buttons">
+        <button class="ui button">{{ render_ui_icon('align left') }}</button>
+        <button class="ui button">{{ render_ui_icon('align center') }}</button>
+        <button class="ui button">{{ render_ui_icon('align right') }}</button>
+        <button class="ui button">{{ render_ui_icon('align justify') }}</button>
+    </div>
+    <div class="ui icon buttons">
+        <button class="ui button">{{ render_ui_icon('bold') }}</button>
+        <button class="ui button">{{ render_ui_icon('underline') }}</button>
+        <button class="ui button">{{ render_ui_icon('text width') }}</button>
+    </div>
+    <h2>Button Social Example</h2>
+    <button class="ui facebook button">
+  <i class="facebook icon"></i>
+  Facebook
+</button>
+<button class="ui twitter button">
+  <i class="twitter icon"></i>
+  Twitter
+</button>
+<button class="ui linkedin button">
+  <i class="linkedin icon"></i>
+  LinkedIn
+</button>
+<button class="ui instagram button">
+  <i class="instagram icon"></i>
+  Instagram
+</button>
+<button class="ui youtube button">
+  <i class="youtube icon"></i>
+  YouTube
+</button>
+<h2>Circular Button example</h2>
+<button class="ui circular facebook icon button">
+  <i class="facebook icon"></i>
+</button>
+<button class="ui circular twitter icon button">
+  <i class="twitter icon"></i>
+</button>
+<button class="ui circular linkedin icon button">
+  <i class="linkedin icon"></i>
+</button>
+<button class="ui circular instagram icon button">
+  <i class="instagram icon"></i>
+</button>
+<button class="ui circular google plus icon button">
+  <i class="google plus icon"></i>
+</button>
+{% endblock %}

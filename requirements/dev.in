@@ -1,0 +1,9 @@
+-r check-manifest.in
+-r coverage.in
+-r docs.in
+-r docstr-cov.in
+-r sample_app.in
+-r style.in
+-r tests.in
+pip-tools
+tox
