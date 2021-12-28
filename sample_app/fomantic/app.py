@@ -248,7 +248,7 @@ def test_nav():
 @app.route("/pagination", methods=["GET", "POST"])
 def test_pagination():
     page = request.args.get("page", 1, type=int)
-    pagination = Message.query.paginate(page, per_page=5)
+    pagination = Message.query.paginate(page, per_page=2)
     messages = pagination.items
     return render_template(
         "pagination.html", pagination=pagination, messages=messages

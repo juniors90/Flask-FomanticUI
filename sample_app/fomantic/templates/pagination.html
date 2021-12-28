@@ -18,7 +18,10 @@
     <h2>Render a simple pagination component with render_ui_pager</h2>
     <pre>{% raw %}{{ render_ui_pager(pagination) }}{% endraw %}</pre>
     {{ render_ui_pager(pagination) }}
-    <h2>Render a simple pagination component with render_ui_pager</h2>
+    <pre>{% raw %}{{ render_ui_pager(pagination, color_active_item='teal') }}{% endraw %}</pre>
+    {{ render_ui_pager(pagination, color_active_item='teal') }}
+    <pre>{% raw %}{{ render_ui_pager(pagination, extra_classes='inverted') }}{% endraw %}</pre>
+    {{ render_ui_pager(pagination, extra_classes='inverted') }}
     <pre>{% raw %}{{ render_ui_pager(pagination,
                     extra_classes='inverted',
                     color_active_item='teal') }}{% endraw %}</pre>

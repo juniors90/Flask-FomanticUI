@@ -485,6 +485,8 @@ API
                               primary_key='id',\
                               primary_key_title='#',\
                               caption=None,\
+                              caption_class=None,\
+                              caption_icon=None,\
                               table_classes=None,\
                               header_classes=None,\
                               responsive=False,\
@@ -497,17 +499,21 @@ API
                               edit_url=None,\
                               delete_url=None,\
                               new_url=None)
-
+                      
     :param data: An iterable of data objects to render. Can be dicts or class objects.
     :param titles: An iterable of tuples of the format (prop, label) e.g ``[('id', '#')]``, if not provided,
                 will automatically detect on provided data, currently only support SQLAlchemy object.
     :param primary_key: Primary key identifier for a single row, default to ``id``.
     :param primary_key_title: Primary key title for a single row, default to ``#``.
     :param caption: A caption to attach to the table.
-    :param table_classes: A string of classes to apply to the table (e.g ``'table-small table-dark'``).
-    :param header_classes: A string of classes to apply to the table header (e.g ``'thead-dark'``).
+    :param caption_class: A caption class to attach to the table. Default to ``None``.
+    :param caption_icon: A caption icon to attach to the table. Default to ``None``.
+    :param table_classes: A string of classes to apply to the table (e.g ``'selectable inverted'``).
+    :param header_classes: A string of classes to apply to the table header (e.g ``'full-width'``).
     :param responsive: Whether to enable/disable table responsiveness.
-    :param responsive_class: The responsive class to apply to the table. Default is ``'table-responsive'``.
+    :param responsive_class: The responsive class to apply to the table. Default to ``'table-responsive'``.
+    :param stackable_class: A string of classes such that specify how it stacks table content responsively
+                            using ``stackable`` or ``stackable`` class. Default to ``None``,
     :param show_actions: Whether to display the actions column. Default is ``False``.
     :param model: The model used to build custom_action, view, edit, delete URLs.
     :param actions_title: Title for the actions column header. Default is ``'Actions'``.
@@ -520,7 +526,7 @@ API
                 to use for the edit action.
     :param delete_url: URL string or URL tuple in ``('endpoint', [('url_parameter_name', ':db_model_fieldname')])``
                 to use for the delete action.
-    :param new_url: URL string to use for the create action (new in version 1.6.0).
+    :param new_url: URL string to use for the create action.
 
 To set the URLs for table actions, you will need to pass either a fixed URL string or
 an URL tuple in the form of ``('endpoint', [('url_parameter_name', ':db_model_fieldname')])``:
@@ -545,7 +551,8 @@ For example, for the view below:
     def view_message(message_id):
         pass
 
-To pass the URL point to this view for ``view_url``, the value will be: ``view_url=('view_message', [('message_id', ':id')])``.
+To pass the URL point to this view for ``view_url``, the value
+will be: ``view_url=('view_message', [('message_id', ':id')])``.
 Here is the full example:
 
 .. code-block:: python
@@ -568,7 +575,8 @@ The following arguments are expect to accpet an URL tuple:
 - ``edit_url``
 - ``delete_url``
 
-When setting the ``delete_url``, you will also need to enable the CSRFProtect extension provided by Flask-WTF, so that
+When setting the ``delete_url``, you will also need to enable the
+CSRFProtect extension provided by Flask-WTF, so that
 the CSRF protection can be added to the delete button:
 
 .. code-block:: text
@@ -588,7 +596,7 @@ By default, it will enable the CSRF token check for all the POST requests, read 
 render_ui_icon()
 ----------------
 
-Render a Fomantic icon.
+Render a Fomantic UI icon.
 
 Example
 ~~~~~~~
@@ -605,6 +613,9 @@ API
 .. py:function:: render_ui_icon(type=None, color=config.FOMANTIC_ICON_COLOR)
 
     :param type: The name of icon, you can find all available names at Fomantic Icon.
-    :param color: The color of icon, follow the context with ``currentColor`` if not set. Accept values are Fomantic style name
-                (one of ``primary``, ``secondary``, ``red``, ``orange``, ``yellow``, ``olive``, ``green``, ``teal``, ``blue``, ``violet``, ``purple``, ``pink``, ``brown``, ``grey``, ``black"]``) or any valid color
-                string (e.g. ``'red'``, ``'#ddd'`` or ``'(250, 250, 250)'``), default to use configuration ``FOMANTIC_ICON_COLOR`` (default value is ``None``).
+    :param color: The color of icon, follow the context with ``currentColor`` if not set.
+                  Accept values are Fomantic style name (one of ``primary``, ``secondary``,
+                  ``red``, ``orange``, ``yellow``, ``olive``, ``green``, ``teal``, ``blue``,
+                  ``violet``, ``purple``, ``pink``, ``brown``, ``grey``, ``black``) or any
+                  valid color string (e.g. ``'red'``, ``'#ddd'`` or ``'rgb(250,250,250)'``),
+                  default to use configuration ``FOMANTIC_ICON_COLOR`` (default value is ``None``).

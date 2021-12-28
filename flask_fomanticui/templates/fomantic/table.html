@@ -41,7 +41,8 @@
                       table_classes=None,
                       header_classes=None,
                       responsive=False,
-                      responsive_class='',
+                      responsive_class=None,
+                      stackable_class=None,
                       model=None,
                       show_actions=False,
                       actions_title='Actions',
@@ -57,28 +58,23 @@
 {% if responsive %}
     <div class="ui {{ responsive_class }}">
 {% endif %}
-<table class="ui celled table{% if table_classes %}{{ ' ' + table_classes }}{% endif %}">
+<table class="ui{% if stackable_class in [stackable, unstackable] %} {{stackable_class}}{% endif %} celled table{% if table_classes %}{{ ' ' + table_classes }}{% endif %}">
     {% if caption %}
     <div{% if caption_class %} class="{{ caption_class }}"{% endif %}>
-        {% if caption_icon %}
-            <i class="{{caption_icon}} icon"></i>
-        {% endif %}
-            {{ caption }}
+        {% if caption_icon %}<i class="{{caption_icon}} icon"></i>{% endif %}{{ caption }}
     </div>
     {% endif %}
     <thead{% if header_classes %} class="{{ header_classes }}"{% endif %}>
     <tr>
-    {% for title in titles %}
-        <th>{{ title[1] }}</th>
-    {% endfor %}
+    {% for title in titles %}<th>{{ title[1] }}</th>{% endfor %}
     {% if show_actions %}
         <th scope="col">{{ actions_title }}
         {% if new_url %}
             <a class="ui item"
                 {% if new_url.startswith('/') %}
-                href="{{ new_url }}"
+                    href="{{ new_url }}"
                 {% else %}
-                href="{{ url_for(new_url) }}"
+                    href="{{ url_for(new_url) }}"
                 {% endif %}
                 title="{{ config['FOMANTIC_TABLE_NEW_TITLE'] }}">
                 {{ render_ui_icon('plus') }}

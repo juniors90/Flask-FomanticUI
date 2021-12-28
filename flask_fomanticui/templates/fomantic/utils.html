@@ -52,6 +52,8 @@
 <i class="{% if color in fomantic_colors %}{{ type + ' ' + color}}{% else %}{{ type }}{% endif %} icon"{% if color %}{% if not color in fomantic_colors %} style="color: {{ color }}"{% endif %}{% endif %}></i>
 {%- endmacro %}
 
+
+
 {% macro form_button(url, content, method="post", class_buttton="ui submit button") -%}
 <form class="ui form error" style="display: inline;" action="{{url}}" method="{{method}}">
     <button class="{{class_buttton|safe}}">
