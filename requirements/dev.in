@@ -5,5 +5,6 @@
 -r sample_app.in
 -r style.in
 -r tests.in
+black
 pip-tools
 tox

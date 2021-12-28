@@ -21,7 +21,7 @@ FLASK_FOMANTIC_PATH = CURRENT_PATH.parent.parent
 
 sys.path.insert(0, str(FLASK_FOMANTIC_PATH))
 
-import flask_fomantic
+import flask_fomanticui
 
 
 # -- Project information -----------------------------------------------------
@@ -31,7 +31,7 @@ copyright = f'{datetime.date.today().year}, Ferreira, Juan David'
 author = 'Ferreira, Juan David'
 
 # The full version, including alpha/beta/rc tags
-release = flask_fomantic.__version__
+release = flask_fomanticui.__version__
 
 
 # -- General configuration ---------------------------------------------------
@@ -73,7 +73,7 @@ html_static_path = ['_static']
 
 html_theme_options = {
     "github_user": "juniors90",
-    "github_repo": "flask-SemanticUI",
+    "github_repo": "flask-FomanticUI",
     "github_banner": True,
     "github_button": True,
     "github_type": "star",

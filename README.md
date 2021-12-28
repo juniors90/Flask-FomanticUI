@@ -40,7 +40,7 @@ For development, clone the [official github repository](https://github.com/junio
 
 ```python
     from flask import Flask, render_template_string
-    from flask_fomantic import FomanticUI
+    from flask_fomanticui import FomanticUI
     
     app = Flask(__name__)
     fomantic = FomanticUI(app)

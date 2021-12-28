@@ -101,7 +101,7 @@ def test_render_pager(app, client):
     assert '<div class="ui pagination menu">' in data
     assert "Prev" in data
     assert "Next" in data
-    assert '<div class="disabled item">' not in data
+    assert '<div class="disabled item">' in data
     assert '<a class="item" href="/pager?page=1">' in data
 
     response = client.get("/pager-inverted-color")
@@ -110,7 +110,7 @@ def test_render_pager(app, client):
     assert '<div class="ui pagination inverted menu">' in data
     assert "Prev" in data
     assert "Next" in data
-    assert '<div class="disabled item">' in data
+    assert '<div class="disabled item">...</div>' in data
     for c in [
         "primary",
         "secondary",
@@ -139,7 +139,7 @@ def test_render_pager(app, client):
     assert '<div class="ui pagination inverted menu">' in data
     assert "Prev" in data
     assert "Next" in data
-    assert '<div class="disabled item">' not in data
+    assert '<div class="disabled item">...</div>' in data
     for c in [
         "primary",
         "secondary",

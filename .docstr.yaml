@@ -6,7 +6,7 @@
 ##  - https://dev.to/epassaro/how-to-keep-track-of-docstring-coverage-of-python-packages-on-ci-41fc
 
 paths:
-  - flask_fomantic
+  - flask_fomanticui
 #badge: docs
 exclude: .*/tests # regex
 verbose: 2 # int (0-3)

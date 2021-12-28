@@ -19,12 +19,12 @@
 
 
 def test_can_import_package():
-    import flask_fomantic  # noqa
+    import flask_fomanticui  # noqa
 
 
 def test_can_initialize_app_and_extesion():
     from flask import Flask
-    from flask_fomantic import FomanticUI
+    from flask_fomanticui import FomanticUI
 
     app = Flask(__name__)
     FomanticUI(app)
@@ -32,7 +32,7 @@ def test_can_initialize_app_and_extesion():
 
 def test_can_initialize_app_and_extesion_with_factory_func():
     from flask import Flask
-    from flask_fomantic import FomanticUI
+    from flask_fomanticui import FomanticUI
 
     app = Flask(__name__)
     fomantic = FomanticUI()

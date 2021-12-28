@@ -1,52 +1,73 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Flask-SematicUI Demo Application</h1>
-<a target="_blank" href="https://codecov.io/gh/juniors90/Flask-SemanticUI">
-    <img src="https://codecov.io/gh/juniors90/Flask-SemanticUI/branch/main/graph/badge.svg?token=V03GVOHP77"/>
-</a>
-<div class="ui list">
-  <div class="item">
-    <i class="users icon"></i>
+<h1>Flask-FomaticUI Demo Application</h1>
+<div class="ui cards">
+  <div class="card">
     <div class="content">
-      <a href="{{ url_for('test_form') }}">Form</a>
+      <div class="header">Form Types</div>
+      <div class="description">
+        Includes Basic, inverted, inline and inverted-inline form.
+      </div>
     </div>
+    <a class="ui teal bottom attached button" href="{{ url_for('test_form') }}">
+      <i class="eye icon"></i>Form
+    </a>
   </div>
-  <div class="item">
-    <i class="users icon"></i>
+  <div class="card">
     <div class="content">
-      <a href="{{ url_for('test_nav') }}">Nav</a>
+      <div class="header">Navigation</div>
+      <div class="description">
+        A menu displays grouped navigation actions as Fomantic UI.
+      </div>
     </div>
+    <a class="ui purple bottom attached button" href="{{ url_for('test_nav') }}">
+      <i class="eye icon"></i>Navigation
+    </a>
   </div>
-  <div class="item">
-    <i class="users icon"></i>
+  <div class="card">
     <div class="content">
-      <a href="{{ url_for('test_pagination') }}">Pagination</a>
+      <div class="header">Pagination</div>
+      <div class="description">
+        Jenny is a student studying Media Management at the New School
+      </div>
     </div>
+    <a class="ui red bottom attached button" href="{{ url_for('test_pagination') }}">
+      <i class="eye icon"></i>Pagination
+    </a>
   </div>
-  <div class="item">
-    <i class="users icon"></i>
+  <div class="card">
     <div class="content">
-      <a href="{{ url_for('test_flash') }}">Flash Messages</a>
+      <div class="header">Message flashing</div>
+      <div class="description">
+        The flashing system for the user interfaces.
+      </div>
     </div>
+    <a class="ui green bottom attached button" href="{{ url_for('test_flash') }}">
+      <i class="eye icon"></i>Flash Messages
+    </a>
   </div>
-  <div class="item">
-    <i class="marker icon"></i>
+  <div class="card">
     <div class="content">
-      <a href="{{ url_for('test_table') }}">Table</a>
+      <div class="header">Tables</div>
+      <div class="description">
+        The macro for rende a tables with data grouped into rows.
+      </div>
     </div>
+    <a class="ui orange bottom attached button" href="{{ url_for('test_table') }}">
+      <i class="eye icon"></i>Table
+    </a>
   </div>
-  <div class="item">
-    <i class="mail icon"></i>
+  <div class="card">
     <div class="content">
-      <a href="{{ url_for('test_icon') }}">Icon</a>
+      <div class="header">Icon</div>
+      <div class="description">
+        A macro for rendered an icon set.
+      </div>
     </div>
-  </div>
-  <div class="item">
-    <i class="linkify icon"></i>
-    <div class="content">
-      <a href="http://www.semantic-ui.com">semantic-ui.com</a>
-    </div>
+    <a class="ui pink bottom attached button" href="{{ url_for('test_icon') }}">
+      <i class="eye icon"></i>Icon 
+    </a>
   </div>
 </div>
 {% endblock %}

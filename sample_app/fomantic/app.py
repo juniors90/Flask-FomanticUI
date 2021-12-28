@@ -25,7 +25,6 @@ from wtforms import (
     SelectField,
     StringField,
     SubmitField,
-    TextField,
     ValidationError,
 )
 from wtforms.fields import FileField, HiddenField, RadioField
@@ -38,11 +37,12 @@ FLASK_FOMANTIC_PATH = CURRENT_PATH.parent.parent
 
 sys.path.insert(0, str(FLASK_FOMANTIC_PATH))
 
-from flask_fomantic import FomanticUI  # noqa
+from flask_fomanticui import FomanticUI  # noqa
 
 app = Flask(__name__)
 # app.secret_key = 'dev'
 app.config["SECRET_KEY"] = "secret key"
+app.config["FOMANTIC_SERVE_LOCAL"] = True
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
@@ -66,12 +66,12 @@ csrf = CSRFProtect(app)
 class TelephoneForm(FlaskForm):
     country_code = IntegerField("Country Code", validators=[DataRequired()])
     area_code = IntegerField("Area Code/Exchange", validators=[DataRequired()])
-    number = TextField("Number")
+    number = StringField("Number")
 
 
 class ExampleForm(FlaskForm):
-    field1 = TextField("First Field", description="This is field one.")
-    field2 = TextField(
+    field1 = StringField("First Field", description="This is field one.")
+    field2 = StringField(
         "Second Field",
         description="This is field two.",
         validators=[DataRequired()],
@@ -137,15 +137,15 @@ class ButtonForm(FlaskForm):
 
 class IMForm(FlaskForm):
     protocol = SelectField(choices=[("aim", "AIM"), ("msn", "MSN")])
-    username = TextField()
+    username = StringField()
 
 
 class ContactForm(FlaskForm):
-    first_name = TextField()
-    last_name = TextField()
+    first_name = StringField()
+    last_name = StringField()
     mobile_phone = FormField(TelephoneForm)
     office_phone = FormField(TelephoneForm)
-    emails = FieldList(TextField("Email"), min_entries=3)
+    emails = FieldList(StringField("Email"), min_entries=3)
     im_accounts = FieldList(FormField(IMForm), min_entries=2)
 
 
@@ -248,7 +248,7 @@ def test_nav():
 @app.route("/pagination", methods=["GET", "POST"])
 def test_pagination():
     page = request.args.get("page", 1, type=int)
-    pagination = Message.query.paginate(page, per_page=10)
+    pagination = Message.query.paginate(page, per_page=5)
     messages = pagination.items
     return render_template(
         "pagination.html", pagination=pagination, messages=messages
@@ -403,6 +403,14 @@ def test_field():
 @app.route("/icon")
 def test_icon():
     return render_template("icon.html")
+
+
+@app.route("/testflas")
+def test_test():
+    flash(
+        Markup('a info message with a link: <a href="/">Click me!</a>'), "info"
+    )  # noqa: E501
+    return render_template("flash.html")
 
 
 if __name__ == "__main__":

@@ -10,6 +10,10 @@ Welcome to Flask-FomanticUI's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   notes/basic
+   notes/macros
+   notes/advanced
+   notes/changelog
    modules/modules
 
 

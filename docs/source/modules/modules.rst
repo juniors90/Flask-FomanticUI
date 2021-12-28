@@ -1,7 +1,7 @@
-flask_fomantic
-==============
+flask_fomanticui
+================
 
 .. toctree::
    :maxdepth: 4
 
-   flask_fomantic
+   flask_fomanticui

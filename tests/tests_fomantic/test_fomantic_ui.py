@@ -20,7 +20,7 @@
 
 from flask import current_app
 
-from flask_fomantic import cdn_base
+from flask_fomanticui import cdn_base
 
 import pytest as pt
 

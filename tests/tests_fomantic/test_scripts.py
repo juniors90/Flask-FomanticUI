@@ -17,7 +17,7 @@
 # TESTS
 # =====================================================================
 
-from flask_fomantic import (
+from flask_fomanticui import (
     link_css_with_sri,
     scripts_with_sri,
     simple_link_css,

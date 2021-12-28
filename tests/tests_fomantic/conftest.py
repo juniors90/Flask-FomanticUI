@@ -19,7 +19,7 @@
 
 import re
 
-from flask_fomantic import FomanticUI
+from flask_fomanticui import FomanticUI
 
 import pytest as pt
 
