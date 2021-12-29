@@ -7,9 +7,11 @@ from flask import (
     Flask,
     Markup,
     flash,
+    redirect,
     render_template,
     render_template_string,
     request,
+    url_for,
 )
 
 from flask_sqlalchemy import SQLAlchemy
@@ -18,14 +20,10 @@ from flask_wtf import CSRFProtect, FlaskForm
 
 from wtforms import (
     BooleanField,
-    FieldList,
     FormField,
     IntegerField,
-    PasswordField,
-    SelectField,
     StringField,
     SubmitField,
-    ValidationError,
 )
 from wtforms.fields import FileField, HiddenField, RadioField
 from wtforms.validators import DataRequired, Length
@@ -41,7 +39,7 @@ from flask_fomanticui import FomanticUI  # noqa
 
 app = Flask(__name__)
 # app.secret_key = 'dev'
-app.config["SECRET_KEY"] = "secret key"
+app.config["SECRET_KEY"] = "secret-key"
 app.config["FOMANTIC_SERVE_LOCAL"] = True
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -66,11 +64,21 @@ csrf = CSRFProtect(app)
 class TelephoneForm(FlaskForm):
     country_code = IntegerField("Country Code", validators=[DataRequired()])
     area_code = IntegerField("Area Code/Exchange", validators=[DataRequired()])
-    number = StringField("Number")
+    number = StringField(
+        "Number",
+        validators=[
+            DataRequired(message="My custom message for number field."),
+            Length(min=6, max=14),
+        ],
+    )
 
 
 class ExampleForm(FlaskForm):
-    field1 = StringField("First Field", description="This is field one.")
+    field1 = StringField(
+        "First Field",
+        description="This is field one.",
+        validators=[DataRequired()],
+    )
     field2 = StringField(
         "Second Field",
         description="This is field two.",
@@ -85,9 +93,12 @@ class ExampleForm(FlaskForm):
             ("lips_106", "Lips 106"),
             ("wctr", "WCTR"),
         ],
+        validators=[DataRequired()],
     )
     checkbox_field = BooleanField(
-        "This is a checkbox", description="Checkboxes can be tricky."
+        "This is a checkbox",
+        description="Checkboxes can be tricky.",
+        validators=[DataRequired()],
     )
 
     # subforms
@@ -96,80 +107,9 @@ class ExampleForm(FlaskForm):
     # you can change the label as well
     office_phone = FormField(TelephoneForm, label="Your office phone")
 
-    ff = FileField("Sample upload")
+    ff = FileField("Sample upload", validators=[DataRequired()])
 
     submit_button = SubmitField("Submit Form")
-
-    def validate_hidden_field(self, form, field):
-        raise ValidationError("Always wrong")
-
-
-class HelloForm(FlaskForm):
-    username = StringField(
-        "Username",
-        description="esta es una descripción",
-        validators=[
-            DataRequired(),
-            Length(min=4, max=10, message="longitud de Username no válida"),
-        ],
-    )
-    password = PasswordField(
-        "Password",
-        validators=[
-            DataRequired(),
-            Length(
-                min=6, max=10, message="The lengtt of password is not validate"
-            ),
-        ],
-    )
-    submit = SubmitField()
-    remember = BooleanField("Remember me")
-
-
-class ButtonForm(FlaskForm):
-    username = StringField(
-        "Username", validators=[DataRequired(), Length(1, 20)]
-    )
-    submit = SubmitField()
-    delete = SubmitField()
-    cancel = SubmitField()
-
-
-class IMForm(FlaskForm):
-    protocol = SelectField(choices=[("aim", "AIM"), ("msn", "MSN")])
-    username = StringField()
-
-
-class ContactForm(FlaskForm):
-    first_name = StringField()
-    last_name = StringField()
-    mobile_phone = FormField(TelephoneForm)
-    office_phone = FormField(TelephoneForm)
-    emails = FieldList(StringField("Email"), min_entries=3)
-    im_accounts = FieldList(FormField(IMForm), min_entries=2)
-
-
-class RadioForm(FlaskForm):
-    name = StringField("Name")
-    username = StringField(
-        "Username", validators=[DataRequired(), Length(1, 20)]
-    )
-    password = PasswordField(
-        "Password", validators=[DataRequired(), Length(8, 150)]
-    )
-    country_code = IntegerField("Country Code", validators=[DataRequired()])
-    radio_field = RadioField(
-        "This is a radio field",
-        choices=[
-            ("head_radio", "Head radio"),
-            ("radio_76fm", "Radio '76 FM"),
-            ("lips_106", "Lips 106"),
-            ("wctr", "WCTR"),
-        ],
-    )
-    hidden = HiddenField()
-    submit_button = SubmitField("Submit Form")
-    remember = BooleanField("Remember me")
 
 
 class Message(db.Model):
@@ -205,43 +145,38 @@ def index():
 
 @app.route("/form", methods=["GET", "POST"])
 def test_form():
-    form = HelloForm()
-    return render_template(
-        "form_basic.html",
-        form=form,
-        telephone_form=TelephoneForm(),
-        contact_form=ContactForm(),
-        im_form=IMForm(),
-        button_form=ButtonForm(),
-        example_form=ExampleForm(),
-    )
+    form = ExampleForm()
+    return render_template("form_basic.html", form=form)
 
 
-@app.route("/form-inline")
+@app.route("/form-inline/", methods=["GET", "POST"])
 def test_form_inline():
     form = ExampleForm()
     return render_template("form_inline.html", form=form)
 
 
-@app.route("/form-inverted")
+@app.route("/form-inverted", methods=["GET", "POST"])
 def test_form_inverted():
     form = ExampleForm()
+    if form.validate_on_submit():
+        name = form.field1.data  # noqa: F841
+        # .. other fields
+        next = request.args.get("next", None)  # noqa: A001
+        if next:
+            return redirect(next)
+        return redirect(url_for("index"))
     return render_template("form_inverted.html", form=form)
 
 
 @app.route("/form-inline-inverted", methods=["GET", "POST"])
 def test_form_inline_inverted():
-    # form = HelloForm()
     form = ExampleForm()
-    if form.validate_on_submit():
-        data = request.form.to_dict()
-        print(data)
     return render_template("form_inline_inverted.html", form=form)
 
 
 @app.route("/nav", methods=["GET", "POST"])
 def test_nav():
-    form = ContactForm()
+    form = ExampleForm()
     return render_template("nav.html", form=form)
 
 
@@ -379,7 +314,7 @@ class Msg(db.Model):
 
 @app.route("/test-render-field")
 def test_field():
-    form = HelloForm()
+    form = ExampleForm()
     return render_template_string(
         """
         {% extends 'base.html' %}

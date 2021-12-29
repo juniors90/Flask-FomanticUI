@@ -236,7 +236,7 @@ action="" is what we want, from http://www.ietf.org/rfc/rfc2396.txt:
                     button_size=button_size) }}
             {%- endif %}
         {%- endfor %}
-        {{ render_ui_hidden_errors(form) }}
+        {# {{ render_ui_hidden_errors(form) }} #}
     </form>
 {%- endmacro %}
 

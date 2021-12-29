@@ -341,13 +341,11 @@ API
                                         endpoint=None,\
                                         prev='left chevron',\
                                         next='right chevron',\
-                                        size=None,\
                                         ellipses='…',\
                                         args={},\
                                         fragment='',\
                                         extra_classes=None,\
-                                        color_active_item=None,\
-                                        **kwargs)
+                                        color_active_item=None)
 
     :param pagination: :class:`~flask_sqlalchemy.Pagination` instance.
     :param endpoint: Which endpoint to call when a page number is clicked.
@@ -360,12 +358,12 @@ API
                 ``None``, the button will be hidden.
     :param ellipses: Symbol/text to use to indicate that pages have been
                     skipped. If ``None``, no indicator will be printed.
-    :param size: Can be 'sm' or 'lg' for smaller/larger pagination.
     :param args: Additional arguments passed to :func:`~flask.url_for`. If
                 ``endpoint`` is ``None``, uses :attr:`~flask.Request.args` and
                 :attr:`~flask.Request.view_args`
     :param fragment: Add URL fragment into link, such as ``#comment``.
-    :param kwargs: Extra attributes for the ``<ul>``-element.
+    :param extra_classes: The classes to add to the pagination menu. Default to ``None``.
+    :param color_active_item: The color classes to add to the pagination item. Default to ``None``.
 
 
 render_static()

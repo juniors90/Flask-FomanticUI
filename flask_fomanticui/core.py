@@ -151,13 +151,14 @@ class _FomanticUI(object):
 
         Parameters
         ----------
-        s_version: ``str``
+        s_version : str
             The version of Fomantic UI.
-        fomantic_sri: ``str``
+        fomantic_sri : str
             Subresource Integrity.
         Return
         ------
-            fomantic-ui CDN File.
+        scripts_cdn : markupsafe.Markup
+            Fomantic-UI CDN File.
         """
 
         serve_local = current_app.config["FOMANTIC_SERVE_LOCAL"]
@@ -178,7 +179,8 @@ class _FomanticUI(object):
             css = link_css_with_sri(url, fomantic_sri)
         else:
             css = f'<link rel="stylesheet" type="text/css" href="{url}">'
-        return Markup(css)
+        scripts_cdn = Markup(css)
+        return scripts_cdn
 
     def _get_js_script(self, version, name, sri):
         """Get <script> tag for JavaScipt resources."""
@@ -232,26 +234,28 @@ class _FomanticUI(object):
 
         Parameter
         ---------
-        version: ``str``
+        version : str
             The version of Fomantic UI.
-        jq_version: ``str``
+        jq_version : str
             The version of jQuery (for Fomantic UI).
-        fomantic_sri: ``str``
+        fomantic_sri : str
             Subresource Integrity for Fomantic UI..
-        jquery_sri: ``str``
+        jquery_sri : str
             Subresource Integrity for jQuery.
         Return
         ------
-            Fomantic-ui CDN File.
+        scripts_cdn : markupsafe.Markup
+            Fomantic-UI CDN File.
         """
 
-        version = self.fomantic_version if version is None else version
+        fui_version = self.fomantic_version if version is None else version
+        fui_sri = self._get_sri("fomantic_js", fui_version, fomantic_sri)
+        fui_js = self._get_js_script(fui_version, "fomantic-ui", fui_sri)
         jq_version = self.jquery_version if jq_version is None else jq_version
-        sui_sri = self._get_sri("fomantic_js", version, fomantic_sri)
-        sui_js = self._get_js_script(version, "fomantic-ui", sui_sri)
         jquery_sri = self._get_sri("jquery", jq_version, jquery_sri)
         jquery = self._get_js_script(jq_version, "jquery", jquery_sri)
-        return Markup(
+        scripts_cdn = Markup(
             f"""{jquery}
-                          {sui_js}"""
+                {fui_js}"""
         )
+        return scripts_cdn
