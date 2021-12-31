@@ -6,6 +6,10 @@
 Welcome to Flask-FomanticUI's documentation!
 ============================================
 
+`Flask <https://flask.palletsprojects.com/en/2.0.x/>`_ extension
+to allow easy embedding of `Fomantic UI <https://fomantic-ui.com/>`_
+CSS Framework.
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
