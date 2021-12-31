@@ -21,12 +21,12 @@
     {% if messages %}
         {% if container -%}
         <!-- begin message block -->
-			<div class="ui text container">
+			<div class="ui container">
 		{% endif %}
 			{% for category, message in messages %}
 				<div class="ui{% if category == 'debug' %} floating{% elif category in ['dark'] %} black{% elif category in ['critical','danger'] %} error{% else %} {{ category }}{% endif %} message">
 					{% if dismissible %}<i class="close icon"></i>{% endif %}
-						<div class="header">{% if category in ['dark','danger','debug', 'light','critical', 'error', 'info','warning', 'success', 'secondary', 'primary'] %}{{ category.title() }}: {% if title %}{{title}}{% endif %}{% else %}{% endif %}</div>
+						<div class="header">{% if category in ['danger','debug','critical', 'error', 'info','warning', 'success'] %}{{ category.title() }}: {% if title %}{{title}}{% endif %}{% else %}{% endif %}</div>
 							{% if category == 'list' %}
 							    {% for msg in message %}
 							        <ul class="list">

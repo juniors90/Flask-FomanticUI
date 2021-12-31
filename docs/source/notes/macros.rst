@@ -109,27 +109,33 @@ API
 
 .. py:function:: render_ui_field(field,\
                                  form_type="basic",\
+                                 inverted=None,\
                                  horizontal_columns=('sixteen', 'sixteen', 'sixteen'),\
                                  button_style="",\
                                  button_size="",\
                                  button_map={})
 
     :param field: The form field (attribute) to render.
-    :param form_type: One of ``basic`` or ``inline``. See the
+    :param form_type: Can be ``inline``. See the
                      Fomantic docs for details on different form layouts.
+    :param inverted: If ``True``, define a `inverted <https://fomantic-ui.com/collections/form.html#inverted>`_
+                     form class. Default to ``None``.
     :param horizontal_columns: *TODO in new relases:* (When using the horizontal layout, layout forms
                               like this. Must be a 3-tuple of ``(column-wide-mobile,
                               column-wide-tablet, column-wide-computer)``).
+    :param button_style: Set button style for ``SubmitField``.
+                         Accept `Fomantic UI button style <https://fomantic-ui.com/elements/button.html>`_
+                         name (i.e. primary, secondary, positive, negative, etc.). Default to ``primary`` (e.g.
+                         ``ui primary``). This will overwrite config ``FOMANTIC_BUTTON_STYLE``.
+    :param button_size: Set button size for ``SubmitField``. Accept Fomantic UI button.
+                        size name: ``mini``, ``tiny``, ``small``, ``medium``, ``large``, ``big``, ``huge``, ``massive``.
+                        Default to ``""`` and this will overwrite config ``FOMANTIC_BUTTON_SIZE``.
     :param button_map: It given by ``button_map.get(field.name, button_style)``. See :ref:`button_customization` to
                        learn how to customize form buttons.
-    :param button_style: Set button style for ``SubmitField``. Accept Fomantic button style name (i.e. primary, 
-                         secondary, success, etc.), default to ``primary`` (e.g. ``ui primary``). This will
-                         overwrite config ``FOMANTIC_BUTTON_STYLE``.
-    :param button_size: Set button size for ``SubmitField``. Accept Fomantic UI button.
-                        size name: ``mini``, ``tiny``, ``small``, ``medium``, ``large``, ``big``, ``huge``, ``massive``
-                        default to ``""``. This will overwrite config ``FOMANTIC_BUTTON_SIZE``.
 
-.. tip:: See :ref:`button_customization` to learn how to customize form buttons.
+.. tip::
+    
+    See :ref:`button_customization` to learn how to customize form buttons.
 
 render_ui_form()
 ----------------
@@ -151,6 +157,7 @@ API
 .. py:function:: render_ui_form(form,\
                                 action="",\
                                 method="post",\
+                                inverted=None,\
                                 extra_classes=None,\
                                 role="form",\
                                 form_type="basic",\
@@ -167,30 +174,32 @@ API
     :param form: The form to output.
     :param action: The URL to receive form data.
     :param method: ``<form>`` method attribute.
+    :param inverted: If ``True``, define a `inverted <https://fomantic-ui.com/collections/form.html#inverted>`_
+                     form class. Default to ``None``.
     :param extra_classes: The classes to add to the ``<form>``.
     :param role: ``<form>`` role attribute.
-    :param form_type: One of ``basic``, ``inline`` or ``horizontal``. See the
+    :param form_type: One of ``inline``. See the
                      Fomantic docs for details on different form layouts.
     :param horizontal_columns: When using the horizontal layout, layout forms
                               like this. Must be a 3-tuple of ``('sixteen', 'sixteen', 'sixteen')``.
     :param enctype: ``<form>`` enctype attribute. If ``None``, will
                     automatically be set to ``multipart/form-data`` if a
                     :class:`~wtforms.fields.FileField` or :class:`~wtforms.fields.MultipleFileField` is present in the form.
-    :param button_map: A dictionary, mapping button field name to Fomantic button style names. For example,
-                      ``{'submit': 'success'}``. This will overwrite ``button_style`` and ``FOMANTIC_BUTTON_STYLE``.
-    :param button_style: Set button style for ``SubmitField``. Accept Fomantic button style name (i.e. primary, 
-                         secondary, outline-success, etc.), default to ``primary`` (e.g. ``btn-primary``). This will
+    :param button_map: A dictionary, mapping button field name to `Fomantic UI button style <https://fomantic-ui.com/elements/button.html>`_
+                       names. For example, ``{'submit': 'positive'}``. This will overwrite ``button_style`` and ``FOMANTIC_BUTTON_STYLE``.
+    :param button_style: Set button style for ``SubmitField``. Accept Fomantic UI button style name (i.e. primary, 
+                         secondary, positive, negative, etc.), default to ``primary`` (e.g. ``ui primary``). This will
                          overwrite config ``FOMANTIC_BUTTON_STYLE``.
-    :param button_size: Set button size for ``SubmitField``. Accept Fomantic button size name: sm, md, lg, block,
-                        default to ``md``. This will overwrite config ``FOMANTIC_BUTTON_SIZE``.
+    :param button_size: Set button size for ``SubmitField``. Accept `Fomantic button size <https://fomantic-ui.com/elements/button.html#size>`_ 
+                        name: mini, tiny, small, medium, large, big, huge, massive. Default to ``""`` and this will overwrite config ``FOMANTIC_BUTTON_SIZE``.
     :param id: The ``<form>`` id attribute.
-    :param novalidate: Flag that decide whether add ``novalidate`` class in ``<form>``.
-    :param render_kw: A dictionary, specifying custom attributes for the
-                     ``<form>`` tag.
+    :param novalidate: Flag that decide whether add ``novalidate`` attribute in ``<form>``.
+    :param render_kw: A dictionary, specifying custom attributes for the ``<form>``.
     :param form_title: The title for the form.
 
-..
-    tip:: See :ref:`button_customization` to learn how to customize form buttons.
+.. tip::
+    
+    See :ref:`button_customization` to learn how to customize form buttons.
 
 
 render_ui_hidden_errors()
@@ -208,10 +217,10 @@ Example
 
     <form class="ui form error" method="post">
         {{ form.hidden_tag() }}
-        {{ render_ui_hidden_errors(form) }}
         {{ render_ui_field(form.username) }}
         {{ render_ui_field(form.password) }}
         {{ render_ui_field(form.submit) }}
+        {{ render_ui_hidden_errors(form) }}
     </form>
 
 API
@@ -261,7 +270,7 @@ API
 ~~~~
 
 .. py:function:: render_ui_field_row(fields,\
-                                      row_class={"number":[\
+                                     row_class={"number":[\
                                         "one",\
                                         "two",\
                                         "three",\
@@ -277,10 +286,7 @@ API
 
     :param fields: An iterable of fields to render in a row.
     :param row_class: A dictionary, mapping the number of fields to a class definition that should be applied to
-                            the div column that contains the field. For example: ``col_map={'username': 'col-md-2'})``
-
-..
-    tip:: See :ref:`button_customization` to learn how to customize form buttons.
+                      the div column that contains the fields number. For example: ``<div class="two fields">...</div>``.
 
 
 render_ui_pager()
@@ -312,7 +318,7 @@ API
     :param fragment: Add URL fragment into link, such as ``#comment``.
     :param prev: Icon to use for the "previous page" button. Default: ``'left chevron'``.
     :param next: Icon to use for the "next page" button.  Default: ``'right chevron'``.
-    :param extra_classes: Can be '', default to 'left'.
+    :param extra_classes: The classes to add to the pagination menu. Can be ``'inverted'``. Default to ``None``.
     :param color_active_item: Can be ``"red"``, ``"orange"``, ``"yellow"``, ``"olive"``,
                               ``"green"``, ``"teal"``, ``"blue"``, ``"violet"``, ``"purple"``,
                               ``"pink"``, ``"brown"``, ``"grey"``, ``"black"``.
@@ -362,7 +368,7 @@ API
                 ``endpoint`` is ``None``, uses :attr:`~flask.Request.args` and
                 :attr:`~flask.Request.view_args`
     :param fragment: Add URL fragment into link, such as ``#comment``.
-    :param extra_classes: The classes to add to the pagination menu. Default to ``None``.
+    :param extra_classes: The classes to add to the pagination menu. Can be ``'inverted'``. Default to ``None``.
     :param color_active_item: The color classes to add to the pagination item. Default to ``None``.
 
 
@@ -432,15 +438,23 @@ API
 
     :param messages: The messages to show. If not given, default to get from ``flask.get_flashed_messages(with_categories=True)``.
     :param title: If true, will enable dismiss animate when click the dismiss button.
-    :param container: If true, will output a complete ``<div class="container">`` element, otherwise just the messages each wrapped in a ``<div>``.
+    :param container: If true, will output a complete ``<div class="ui container">`` element, otherwise just the messages each wrapped in a ``<div>``.
     :param transform: A dictionary of mappings for categories. Will be looked up case-insensitively. Default maps all Python loglevel names to Fomantic CSS classes.
     :param default_category: If a category does not has a mapping in transform, it is passed through unchanged. ``default_category`` will be used when ``category`` is empty.
     :param dismissible: If true, will output a button to close an alert. For fully functioning dismissible alerts, you must use the alerts JavaScript plugin.
     
 
-When you call ``flash('message', 'category')``, there are 8 category options available, mapping to Fomantic 4's alerts type:
+When you call ``flash('message', 'category')``, there are 8 category options available, mapping to Fomantic UI alerts type:
 
-primary, secondary, success, danger, warning, info, light, dark.
+- dark,
+- danger,
+- debug,
+- light,
+- critical,
+- error,
+- info,
+- warning,
+- success
 
 If you want to use HTML in your message body, just wrapper your message string with ``flask.Markup`` to tell Jinja it's safe:
 

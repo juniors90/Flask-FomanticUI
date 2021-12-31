@@ -13,10 +13,21 @@ Welcome to Flask-FomanticUI's documentation!
    notes/basic
    notes/macros
    notes/advanced
+   notes/examples
    notes/changelog
    modules/modules
 
 
+
+License
+-------
+
+This project is licensed under the MIT License (see the ``LICENSE`` file for
+details).
+
+- Some python scripts and macros were part of Bootstrap-Flask and were modified under the terms of its MIT License. Copyright (c) 2018 Grey Li. All rights reserved.
+
+- Some macros were part of Flask-Bootstrap and were modified under the terms of its BSD License. Copyright (c) 2013, Marc Brinkmann. All rights reserved.
 
 Indices and tables
 ==================

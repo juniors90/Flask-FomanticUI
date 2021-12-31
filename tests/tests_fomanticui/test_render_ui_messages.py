@@ -73,7 +73,7 @@ def test_render_ui_messages(app, client):
 
     response = client.get("/container")
     data = response.get_data(as_text=True)
-    assert '<div class="ui text container">' in data
+    assert '<div class="ui container">' in data
 
     response = client.get("/dismissible")
     data = response.get_data(as_text=True)

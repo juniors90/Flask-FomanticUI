@@ -55,6 +55,9 @@ app.config["FOMANTIC_TABLE_EDIT_TITLE"] = "Update"
 app.config["FOMANTIC_TABLE_DELETE_TITLE"] = "Remove"
 app.config["FOMANTIC_TABLE_NEW_TITLE"] = "Create"
 
+app.config["FOMANTIC_CHECKBOX_HEADER_ERROR"] = "Checkbox Header Error"
+app.config["FOMANTIC_RADIO_HEADER_ERROR"] = "Radio Header Error"
+
 semantic = FomanticUI(app)
 db = SQLAlchemy(app)
 csrf = CSRFProtect(app)
@@ -202,24 +205,9 @@ def test_flash():
         "error",
         "info",
         "warning",
-        "success",
-        "secondary",
-        "primary",
+        "success"
     ]:
         flash(f"A simple {category} alert—check it out!", category)
-    flash(
-        Markup(
-            '<div class="ui possitive message">'
-            + '<i class="close icon"></i>'
-            + '<div class="header">'
-            + "A success message"
-            + "</div>"
-            + '<p>A simple success alert with <a href="#" class="ui item">'
-            + " an example link</a>. Give it a click if you like.</p>"
-            "</div>"
-        ),
-        "success",
-    )
     return render_template("flash.html")
 
 

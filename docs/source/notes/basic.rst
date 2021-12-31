@@ -24,6 +24,33 @@ Create a project folder and a :file:`venv` folder within:
          > cd myproject
          > py -3 -m venv venv
 
+
+Activate the environment
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Before you work on your project, activate the corresponding environment:
+
+.. tabs::
+
+   .. group-tab:: macOS/Linux
+
+      .. code-block:: text
+
+         $ . venv/bin/activate
+
+   .. group-tab:: Windows
+
+      .. code-block:: text
+
+         > venv\Scripts\activate
+
+Your shell prompt will change to show the name of the activated
+environment.
+
+
+Install Flask-FomanticUI
+~~~~~~~~~~~~~~~~~~~~~~~~
+
 .. code-block:: bash
 
     $ pip install Flask-FomanticUI

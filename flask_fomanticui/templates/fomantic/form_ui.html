@@ -24,9 +24,9 @@
 
 {% macro render_ui_field(field,
                     form_type="basic",
+                    inverted=None,
                     horizontal_columns=('sixteen', 'sixteen', 'sixteen'),
                     button_map={},
-                    inverted=None,
                     button_style='',
                     button_size='') %}
 
@@ -39,6 +39,9 @@
     {# combine render_kw class or class/class_ argument with Bootstrap classes #}
     {% set render_kw_class = '' + field.render_kw.class if field.render_kw.class else '' %}
     {% set class = kwargs.pop('class', '') or kwargs.pop('class_', '') %}
+    {% set default_error_header = config.FOMANTIC_DEFAULT_HEADER_ERROR %}
+    {% set checkbox_error_header = config.FOMANTIC_CHECKBOX_HEADER_ERROR %}
+    {% set radio_error_header = config.FOMANTIC_RADIO_HEADER_ERROR %}
     {% if class %}
         {# override render_kw class when class/class_ presents as keyword argument #}
         {% set render_kw_class = '' %}
@@ -49,10 +52,14 @@
 
     {% if field.widget.input_type == 'checkbox' %}
         {% set field_kwargs = kwargs %}
-            <div class="ui field">
+            <div class="ui field{% if field.errors %} error{% endif %}">
                 <div class="ui checkbox">
                     {{ field(class="%s" % extra_classes, **field_kwargs)|safe }}
-                    {{ field.label(for=field.id)|safe }}
+                    {%if inverted %}
+                        {{ field.label(for=field.id, style="color: #FFFFFF;")|safe }}
+                    {%else%}
+                        {{ field.label(for=field.id)|safe }}
+                    {%endif %}
                 </div>
                 {% if field.description -%}
                     <small style="margin-left:0.1in; font-size: small;">{{ field.description|safe }}</small>
@@ -61,7 +68,7 @@
         {%- if field.errors %}
             {%- for error in field.errors %}
                 <div class="ui error message">
-                    <div class="header">Action Forbidden</div>
+                    <div class="header">{{ checkbox_error_header }}</div>
                     <p>{{error}}</p>
                 </div>
             {%- endfor %}
@@ -77,10 +84,14 @@
             {%- endif %}
             
             {% for item in field -%}
-                <div class="field">
+                <div class="field{% if field.errors %} error{% endif %}">
                     <div class="ui radio checkbox">
                         {{item(**kwargs)|safe}}
-                        {{item.label(for=item.id)|safe}}
+                        {%if inverted %}
+                            {{ item.label(for=item.id, style="color: #FFFFFF;")|safe}}
+                        {%else%}
+                            {{ item.label(for=item.id)|safe}}
+                        {%endif %}
                     </div>
                     {% if field.description -%}
                         <small style="margin-left:0.1in; font-size: small;">{{ field.description|safe }}</small>
@@ -91,7 +102,7 @@
         {%- if field.errors %}
             {%- for error in field.errors %}
                 <div class="ui error message">
-                    <div class="header">Action Forbidden</div>
+                    <div class="header">{{ radio_error_header }}</div>
                     <p>{{error}}</p>
                 </div>
             {%- endfor %}
@@ -122,14 +133,16 @@
             {%- endfor %}
         </fieldset>
     {% else -%}
-      <div class="{% if form_type == "inline" %}inline fields{% else%}field{% endif -%}{%- if field.flags.required %} required{% endif -%}">
+    <div class="{% if form_type == "inline" %}inline fields{% else%}field{% if field.errors %} error{% endif %}{% endif -%}{%- if field.flags.required %} required{% endif -%}">
       {%- if form_type == "inline" %}
+        <div class="sixteen wide field{% if field.errors %} error{% endif %}">
           {{field.label|safe}}
           {% if field.type == 'FileField' %}
             {{field(class="%s" % extra_classes, **kwargs)|safe}}
           {% else %}
             {{field(class="%s" % extra_classes, **kwargs)|safe}}
           {% endif %}
+        </div>
           {% if field.description -%}
                     <small style="margin-left:0.1in; font-size: small;">{{ field.description|safe }}</small>
           {%- endif %}
@@ -143,16 +156,16 @@
           {% if field.description -%}
               <small style="margin-left:0.1in; font-size: small;">{{ field.description|safe }}</small>
           {%- endif %}
-        {%- if field.errors %}
-          {%- for error in field.errors %}
-            <div class="ui error message">
-              <div class="header">Action Forbidden</div>
-              <p>{{error}}</p>
-            </div>
-          {%- endfor %}
-        {%- endif %}
       {%- endif %}
-  </div>
+     </div>
+     {%- if field.errors %}
+        {%- for error in field.errors %}
+            <div class="ui error message">
+                <div class="header">{{ default_error_header }}</div>
+                <p>{{error}}</p>
+            </div>
+        {%- endfor %}
+     {%- endif %}
     {% endif %}
 {% endmacro %}
 
@@ -240,21 +253,7 @@ action="" is what we want, from http://www.ietf.org/rfc/rfc2396.txt:
     </form>
 {%- endmacro %}
 
-{% macro render_ui_field_row(fields,
-                             row_class={
-                                "number":[
-                                            "one",
-                                            "two",
-                                            "three",
-                                            "four",
-                                            "five",
-                                            "six",
-                                            "seven",
-                                            "eight",
-                                            "nine",
-                                            "ten"
-                                        ]
-                                    }) %}
+{% macro render_ui_field_row(fields, row_class = {"number": ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"] }) %}
     <div class="{{row_class["number"][fields|length - 1]}} fields">
         {% for field in fields %}
             {{ render_ui_field(field) }}
