@@ -10,14 +10,14 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/juniors90/Flask-FomanticUI?color=green)](https://github.com/juniors90/Flask-FomanticUI/graphs/contributors)
 [![black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-Flask-FomanticUI is a collection of Jinja macros for Fomantic UI and Flask for the global style. Very similar to [Bootstrap-Flask](https://github.com/greyli/bootstrap-flask). It helps you to
+Flask-FomanticUI is a collection of Jinja macros for [Fomantic UI](https://fomantic-ui.com/) and
+[Flask](https://flask.palletsprojects.com/en/2.0.x/) for the global style. Very similar
+to [Bootstrap-Flask](https://github.com/greyli/bootstrap-flask). It helps you to
 render Flask-related data and objects to Fomantic UI markup HTML more easily:
 
-## Features
-
-- [x] Render Flask-WTF/WTForms form object to Fomantic UI Form.
-- [x] Render data objects (dict or class objects) to Fomantic UI Table.
-- [x] Render Flask-SQLAlchemy `Pagination` object to Fomantic UI Pagination, etc.
+- [x] Table generation: Render data objects (dict or class objects) to Fomantic UI Table.
+- [x] Paginate generation: Render Flask-SQLAlchemy `Pagination` object to Fomantic UI Pagination.
+- [x] Form generation: Render Flask-WTF/WTForms form object to Fomantic UI Form, etc.
 
 
 ## Requirements
@@ -81,11 +81,11 @@ Now with the `render_form` macro:
 
 You will get a form like this with only one line code (i.e. `{{ render_ui_form(form) }}`):
 
-![form rendering](./docs/source/_static/form-example.PNG)
+![form rendering](https://raw.githubusercontent.com/juniors90/Flask-FomanticUI/master/docs/source/_static/form-example.PNG)
 
 When the validation fails, the error messages will be rendered with proper style:
 
-![error form rendering](./docs/source/_static/error-form-example.PNG)
+![error form rendering](https://raw.githubusercontent.com/juniors90/Flask-FomanticUI/master/docs/source/_static/error-form-example.PNG)
 
 Read the [Basic Usage](https://flask-fomanticui.readthedocs.io/en/latest/notes/basic.html) 
 docs for more details.
