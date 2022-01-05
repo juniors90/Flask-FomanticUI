@@ -10,13 +10,14 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/juniors90/Flask-FomanticUI?color=green)](https://github.com/juniors90/Flask-FomanticUI/graphs/contributors)
 [![black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-Flask-FomanticUI is a collection of Jinja macros for Fomantic and Flask. It helps you to
+Flask-FomanticUI is a collection of Jinja macros for Fomantic UI and Flask for the global style. Very similar to [Bootstrap-Flask](https://github.com/greyli/bootstrap-flask). It helps you to
 render Flask-related data and objects to Fomantic UI markup HTML more easily:
 
-- Render Flask-WTF/WTForms form object to Fomantic UI Form.
-- Render data objects (dict or class objects) to Fomantic UI Table.
-- Render Flask-SQLAlchemy `Pagination` object to Fomantic UI Pagination.
-- etc.
+## Features
+
+- [x] Render Flask-WTF/WTForms form object to Fomantic UI Form.
+- [x] Render data objects (dict or class objects) to Fomantic UI Table.
+- [x] Render Flask-SQLAlchemy `Pagination` object to Fomantic UI Pagination, etc.
 
 
 ## Requirements
@@ -33,16 +34,6 @@ You can install via pip:
 
 ```cmd
     $> pip install Flask-FomanticUI
-```
-   
-For development, clone the [official github repository](https://github.com/juniors90/Flask-FomanticUI) instead and use:
-
-```cmd
-    $ git clone git@github.com:juniors90/Flask-FomanticUI.git
-    $ cd Flask-FomanticUI
-    $ python3 -m venv venv
-    $ source venv/bin/activate
-    (venv) $ pip install -r requirements/dev.txt
 ```
 
 ## Example
@@ -66,8 +57,8 @@ Assuming you have a Flask-WTF form like this:
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(1, 20)])
     password = PasswordField('Password', validators=[DataRequired(), Length(8, 150)])
-    remember = BooleanField('Remember me')
     submit = SubmitField()
+    remember = BooleanField('Remember me')
 ```
 
 Now with the `render_form` macro:
@@ -90,11 +81,11 @@ Now with the `render_form` macro:
 
 You will get a form like this with only one line code (i.e. `{{ render_ui_form(form) }}`):
 
-![form rendering](.docs/source/_static/form-example.png)
+![form rendering](.docs/source/_static/form-example.PNG)
 
 When the validation fails, the error messages will be rendered with proper style:
 
-![error form rendering](./docs/source/_static/error-form-example.png)
+![error form rendering](./docs/source/_static/error-form-example.PNG)
 
 Read the [Basic Usage](https://flask-fomanticui.readthedocs.io/en/latest/notes/basic.html) 
 docs for more details.
