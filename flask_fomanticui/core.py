@@ -117,9 +117,15 @@ class _FomanticUI(object):
         app.config.setdefault("FOMANTIC_BUTTON_SIZE", "")
         app.config.setdefault("FOMANTIC_ICON_COLOR", None)
         app.config.setdefault("FOMANTIC_ICON_SIZE", None)
-        app.config.setdefault("FOMANTIC_ERROR_HEADER", "Action Forbidden")  # noqa: E501
-        app.config.setdefault("FOMANTIC_CHECKBOX_HEADER_ERROR", "Action Forbidden")  # noqa: E501
-        app.config.setdefault("FOMANTIC_RADIO_HEADER_ERROR", "Action Forbidden")  # noqa: E501
+        app.config.setdefault(
+            "FOMANTIC_ERROR_HEADER", "Action Forbidden"
+        )  # noqa: E501
+        app.config.setdefault(
+            "FOMANTIC_CHECKBOX_HEADER_ERROR", "Action Forbidden"
+        )  # noqa: E501
+        app.config.setdefault(
+            "FOMANTIC_RADIO_HEADER_ERROR", "Action Forbidden"
+        )  # noqa: E501
         app.config.setdefault(
             "FOMANTIC_MSG_CATEGORY", None
         )  # change primary by None

@@ -206,7 +206,7 @@ def test_flash():
         "error",
         "info",
         "warning",
-        "success"
+        "success",
     ]:
         flash(f"A simple {category} alert—check it out!", category)
     return render_template("flash.html")
@@ -338,10 +338,15 @@ def test_test():
 
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(1, 20)])
-    password = PasswordField('Password', validators=[DataRequired(), Length(8, 150)])
+    username = StringField(
+        "Username", validators=[DataRequired(), Length(1, 20)]
+    )
+    password = PasswordField(
+        "Password", validators=[DataRequired(), Length(8, 150)]
+    )
     submit = SubmitField()
-    remember = BooleanField('Remember me')
+    remember = BooleanField("Remember me")
+
 
 @app.route("/login", methods=["GET", "POST"])
 def test_login():
@@ -355,7 +360,6 @@ def test_login():
             return redirect(next)
         return redirect(url_for("index"))
     return render_template("login.html", form=form)
-
 
 
 if __name__ == "__main__":
