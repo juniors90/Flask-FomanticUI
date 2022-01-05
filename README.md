@@ -81,7 +81,7 @@ Now with the `render_form` macro:
 
 You will get a form like this with only one line code (i.e. `{{ render_ui_form(form) }}`):
 
-![form rendering](.docs/source/_static/form-example.PNG)
+![form rendering](./docs/source/_static/form-example.PNG)
 
 When the validation fails, the error messages will be rendered with proper style:
 
