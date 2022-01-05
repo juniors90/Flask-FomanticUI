@@ -175,6 +175,7 @@
                     method="post",
                     inverted=None,
                     extra_classes=None,
+                    color_title=None,
                     role="form",
                     form_type="basic",
                     horizontal_columns=('sixteen', 'sixteen', 'sixteen'),
@@ -234,9 +235,9 @@ action="" is what we want, from http://www.ietf.org/rfc/rfc2396.txt:
             {%- if render_kw %} {{ render_kw|xmlattr }}{% endif -%}>
         {{ form.hidden_tag() }}
         {%- if form_title != None %}
-            <h4 class="ui dividing header {%- if inverted %} inverted{% endif -%}">
+            <h2 class="ui{%- if color_title %} {{color_title}} {% endif -%} dividing header {%- if inverted %} inverted{% endif -%}">
                 {{form_title}}
-            </h4>
+            </h2>
         {% endif -%}
         {%- for field in form %}
             {% if not fomantic_is_hidden_field(field) -%}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% from "fomantic/form_ui.html" import render_ui_form %}
+
+{% block content %}
+<h1 class="ui center">Flask Fomantic UI 2.8.8 - Demo Application</h1>
+
+<div class="ui middle aligned grid">
+    <div class="column">
+        {{ render_ui_form(form,
+                          extra_classes='large',
+                          color_title='teal',
+                          form_title='Log-in to your account',
+                          button_size='fluid large',
+                          novalidate=True,
+                          button_map={'submit': 'teal'}) }}
+        <div class="ui message aligned center">New to us? <a href="#">Sign Up</a></div>
+  </div>
+</div>
+
+{% endblock %}

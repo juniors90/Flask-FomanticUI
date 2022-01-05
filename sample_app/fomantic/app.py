@@ -22,6 +22,7 @@ from wtforms import (
     BooleanField,
     FormField,
     IntegerField,
+    PasswordField,
     StringField,
     SubmitField,
 )
@@ -334,6 +335,27 @@ def test_test():
         Markup('a info message with a link: <a href="/">Click me!</a>'), "info"
     )  # noqa: E501
     return render_template("flash.html")
+
+
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired(), Length(1, 20)])
+    password = PasswordField('Password', validators=[DataRequired(), Length(8, 150)])
+    submit = SubmitField()
+    remember = BooleanField('Remember me')
+
+@app.route("/login", methods=["GET", "POST"])
+def test_login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        name = form.username.data  # noqa: F841
+        password = form.password.data  # noqa: F841
+        remember = form.remember.data  # noqa: F841
+        next = request.args.get("next", None)  # noqa: A001
+        if next:
+            return redirect(next)
+        return redirect(url_for("index"))
+    return render_template("login.html", form=form)
+
 
 
 if __name__ == "__main__":
