@@ -39,7 +39,7 @@
     {# combine render_kw class or class/class_ argument with Bootstrap classes #}
     {% set render_kw_class = '' + field.render_kw.class if field.render_kw.class else '' %}
     {% set class = kwargs.pop('class', '') or kwargs.pop('class_', '') %}
-    {% set default_error_header = config.FOMANTIC_DEFAULT_HEADER_ERROR %}
+    {% set default_error_header = config.FOMANTIC_ERROR_HEADER %}
     {% set checkbox_error_header = config.FOMANTIC_CHECKBOX_HEADER_ERROR %}
     {% set radio_error_header = config.FOMANTIC_RADIO_HEADER_ERROR %}
     {% if class %}

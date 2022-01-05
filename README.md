@@ -10,6 +10,14 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/juniors90/Flask-FomanticUI?color=green)](https://github.com/juniors90/Flask-FomanticUI/graphs/contributors)
 [![black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
+Flask-FomanticUI is a collection of Jinja macros for Fomantic and Flask. It helps you to
+render Flask-related data and objects to Fomantic UI markup HTML more easily:
+
+- Render Flask-WTF/WTForms form object to Fomantic UI Form.
+- Render data objects (dict or class objects) to Fomantic UI Table.
+- Render Flask-SQLAlchemy `Pagination` object to Fomantic UI Pagination.
+- etc.
+
 
 ## Requirements
 
@@ -37,24 +45,59 @@ For development, clone the [official github repository](https://github.com/junio
     (venv) $ pip install -r requirements/dev.txt
 ```
 
-## Quick start
+## Example
+
+Register the extension:
 
 ```python
-    from flask import Flask, render_template_string
-    from flask_fomanticui import FomanticUI
-    
-    app = Flask(__name__)
-    fomantic = FomanticUI(app)
+from flask import Flask
+# To follow the naming rule of Flask extension, although
+# this project's name is Flask-FomanticUI, the actual package
+# installed is named `flask_fomanticui`.
+from flask_fomanticui import FomanticUI
 
-    # routes
-    @app.route("/")
-    def index():
-        # Make data:
-        return render_template()
-
-    if __name__ == "__main__":
-        app.run(port=5000, debug=True)
+app = Flask(__name__)
+fomantic = FomanticUI(app)
 ```
+
+Assuming you have a Flask-WTF form like this:
+
+```python
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired(), Length(1, 20)])
+    password = PasswordField('Password', validators=[DataRequired(), Length(8, 150)])
+    remember = BooleanField('Remember me')
+    submit = SubmitField()
+```
+
+Now with the `render_form` macro:
+
+```html
+{% from 'fomanticui/form_ui.html' import render_ui_form %}
+<html>
+<head>
+<!-- Fomantic UI - CSS -->
+</head>
+<body>
+
+<h2>Login</h2>
+{{ render_ui_form(form) }}
+
+<!-- Fomantic UI - JS -->
+</body>
+</html>
+```
+
+You will get a form like this with only one line code (i.e. `{{ render_ui_form(form) }}`):
+
+![form rendering](.docs/source/_static/form-example.png)
+
+When the validation fails, the error messages will be rendered with proper style:
+
+![error form rendering](./docs/source/_static/error-form-example.png)
+
+Read the [Basic Usage](https://flask-fomanticui.readthedocs.io/en/latest/notes/basic.html) 
+docs for more details.
 
 ## Links
 
@@ -90,4 +133,3 @@ Credits goes to these peoples:
 under the terms of the MIT License. For more information, you can see the
 [LICENSE](https://github.com/juniors90/Flask-FomanticUI/blob/main/LICENSE) file
 for details.
-

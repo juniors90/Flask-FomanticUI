@@ -42,6 +42,12 @@ with open("README.md") as fp:
     LONG_DESCRIPTION = fp.read()
 
 
+source = "https://github.com/juniors90/Flask-FomanticUI"
+tracker = "https://github.com/juniors90/Flask-FomanticUI/issues"
+donate = "https://www.paypal.com/donate?hosted_button_id=LFAQ7E7TJ4HSY"
+funding = "https://paypal.me/juniors90"
+
+
 # =============================================================================
 # FUNCTIONS
 # =============================================================================
@@ -61,6 +67,12 @@ setup(
     license="The MIT License",
     install_requires=REQUIREMENTS,
     keywords=["Fomantic-UI", "Flask", "Framework CSS"],
+    project_urls={
+        "Source": source,
+        "Tracker": tracker,
+        "Donate": donate,
+        "Funding": funding,
+    },
     classifiers=[
         "Development Status :: 4 - Beta",
         "License :: OSI Approved :: MIT License",

@@ -328,7 +328,7 @@ def test_icon():
     return render_template("icon.html")
 
 
-@app.route("/testflas")
+@app.route("/testflash")
 def test_test():
     flash(
         Markup('a info message with a link: <a href="/">Click me!</a>'), "info"

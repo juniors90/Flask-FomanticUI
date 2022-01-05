@@ -19,7 +19,7 @@
 
 """Flask-FomanticUI.
 
-Implementation of FomanticUI in Flask.
+Implementation of Fomantic UI in Flask.
 """
 
 # =============================================================================
@@ -117,7 +117,7 @@ class _FomanticUI(object):
         app.config.setdefault("FOMANTIC_BUTTON_SIZE", "")
         app.config.setdefault("FOMANTIC_ICON_COLOR", None)
         app.config.setdefault("FOMANTIC_ICON_SIZE", None)
-        app.config.setdefault("FOMANTIC_DEFAULT_HEADER_ERROR", "Action Forbidden")  # noqa: E501
+        app.config.setdefault("FOMANTIC_ERROR_HEADER", "Action Forbidden")  # noqa: E501
         app.config.setdefault("FOMANTIC_CHECKBOX_HEADER_ERROR", "Action Forbidden")  # noqa: E501
         app.config.setdefault("FOMANTIC_RADIO_HEADER_ERROR", "Action Forbidden")  # noqa: E501
         app.config.setdefault(
@@ -161,7 +161,7 @@ class _FomanticUI(object):
         Return
         ------
         scripts_cdn : markupsafe.Markup
-            Fomantic-UI CDN File.
+            Fomantic UI CDN File.
         """
 
         serve_local = current_app.config["FOMANTIC_SERVE_LOCAL"]
@@ -233,7 +233,7 @@ class _FomanticUI(object):
         fomantic_sri=None,
         jquery_sri=None,
     ):
-        """Load Seomantic UI and other resources with given version.
+        """Load Fomantic UI and other resources with given version.
 
         Parameter
         ---------
@@ -248,7 +248,7 @@ class _FomanticUI(object):
         Return
         ------
         scripts_cdn : markupsafe.Markup
-            Fomantic-UI CDN File.
+            Fomantic UI CDN File.
         """
 
         fui_version = self.fomantic_version if version is None else version
