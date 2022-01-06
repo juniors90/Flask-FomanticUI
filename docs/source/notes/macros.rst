@@ -159,6 +159,7 @@ API
                                 method="post",\
                                 inverted=None,\
                                 extra_classes=None,\
+                                color_title=None,\
                                 role="form",\
                                 form_type="basic",\
                                 horizontal_columns=('sixteen', 'sixteen', 'sixteen'),\
@@ -177,6 +178,7 @@ API
     :param inverted: If ``True``, define a `inverted <https://fomantic-ui.com/collections/form.html#inverted>`_
                      form class. Default to ``None``.
     :param extra_classes: The classes to add to the ``<form>``.
+    :param color_title: The color to add to the ``<form>`` title. Default to ``None``.
     :param role: ``<form>`` role attribute.
     :param form_type: One of ``inline``. See the
                      Fomantic docs for details on different form layouts.

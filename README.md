@@ -1,4 +1,4 @@
-# Flask-FomanticUI (Building)
+# Flask-FomanticUI
 
 [![Build status](https://github.com/juniors90/Flask-FomanticUI/actions/workflows/testing-package.yml/badge.svg)](https://github.com/juniors90/Flask-FomanticUI/actions)
 [![codecov](https://codecov.io/gh/juniors90/Flask-FomanticUI/branch/main/graph/badge.svg?token=YNCV9C9GIG)](https://codecov.io/gh/juniors90/Flask-FomanticUI)
