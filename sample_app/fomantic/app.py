@@ -212,7 +212,7 @@ def test_flash():
     return render_template("flash.html")
 
 
-@app.route("/table")
+@app.route("/tables/")
 def test_table():
     page = request.args.get("page", 1, type=int)
     pagination = Message.query.paginate(page, per_page=10)
@@ -236,12 +236,12 @@ def view_message(message_id):
     not_exist_msg = (
         f"Could not view message {message_id}"
         + " as it does not exist. Return to "
-        + '<a href="/table">table</a>.'
+        + '<a href="/tables">table</a>.'
     )
     exist_msg = (
         f"Viewing {message_id}"
         + ' with text "{message.text}".'
-        + ' Return to <a href="/table">table</a>.'
+        + ' Return to <a href="/tables">table</a>.'
     )
     if message:
         return exist_msg
@@ -253,14 +253,14 @@ def edit_message(message_id):
     message = Message.query.get(message_id)
     not_exist_msg = (
         f"Message {message_id} did not exist and could therefore"
-        + ' not be edited. Return to <a href="/table">table</a>.'
+        + ' not be edited. Return to <a href="/tables">table</a>.'
     )
     if message:
         message.draft = not message.draft
         db.session.commit()
         return (
             f"Message {message_id} has been editted by toggling draft status."
-            + ' Return to <a href="/table">table</a>.'
+            + ' Return to <a href="/tables">table</a>.'
         )
     return not_exist_msg
 
@@ -273,11 +273,11 @@ def delete_message(message_id):
         db.session.commit()
         return (
             f"Message {message_id} has been deleted. Return to"
-            + ' <a href="/table">table</a>.'
+            + ' <a href="/tables">table</a>.'
         )
     return (
         f"Message {message_id} did not exist and could therefore not be"
-        + ' deleted. Return to <a href="/table">table</a>.'
+        + ' deleted. Return to <a href="/tables">table</a>.'
     )
 
 
@@ -285,14 +285,14 @@ def delete_message(message_id):
 def like_message(message_id):
     return (
         f"Liked the message {message_id}. Return to "
-        + '<a href="/table">table</a>.'
+        + '<a href="/tables">table</a>.'
     )
 
 
 @app.route("/table/new-message")
 def new_message():
     return (
-        'Here is the new message page. Return to <a href="/table">table</a>.'
+        'Here is the new message page. Return to <a href="/tables">table</a>.'
     )
 
 

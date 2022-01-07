@@ -60,14 +60,6 @@
         {% block content %}{% endblock %}
         </div>
     </main>
-    
-    <footer class="ui text center">
-        {% block footer %}
-            <small> &copy; 2021–<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/juniors90">Juniors90 </a>
-            </small>
-        {% endblock %}
-    </footer>
-
     {{ fomantic.load_js() }}
     <script>
     window.onload = function(){
