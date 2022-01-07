@@ -12,8 +12,9 @@
 
 Flask-FomanticUI is a collection of Jinja macros for [Fomantic UI](https://fomantic-ui.com/) and
 [Flask](https://flask.palletsprojects.com/en/2.0.x/) for the global style. Very similar
-to [Bootstrap-Flask](https://github.com/greyli/bootstrap-flask). It helps you to
-render Flask-related data and objects to Fomantic UI markup HTML more easily:
+to [Bootstrap-Flask](https://github.com/greyli/bootstrap-flask). 
+
+## Features
 
 - [x] Table generation: Render data objects (dict or class objects) to Fomantic UI Table.
 - [x] Paginate generation: Render Flask-SQLAlchemy `Pagination` object to Fomantic UI Pagination.
