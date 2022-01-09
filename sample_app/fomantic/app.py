@@ -230,7 +230,7 @@ def test_table():
     )
 
 
-@app.route("/table/<int:message_id>/view")
+@app.route("/tables/<int:message_id>/view")
 def view_message(message_id):
     message = Message.query.get(message_id)
     not_exist_msg = (
@@ -248,7 +248,7 @@ def view_message(message_id):
     return not_exist_msg
 
 
-@app.route("/table/<int:message_id>/edit")
+@app.route("/tables/<int:message_id>/edit")
 def edit_message(message_id):
     message = Message.query.get(message_id)
     not_exist_msg = (
@@ -265,7 +265,7 @@ def edit_message(message_id):
     return not_exist_msg
 
 
-@app.route("/table/<int:message_id>/delete", methods=["POST"])
+@app.route("/tables/<int:message_id>/delete", methods=["POST"])
 def delete_message(message_id):
     message = Message.query.get(message_id)
     if message:
@@ -281,7 +281,7 @@ def delete_message(message_id):
     )
 
 
-@app.route("/table/<int:message_id>/like")
+@app.route("/tables/<int:message_id>/like")
 def like_message(message_id):
     return (
         f"Liked the message {message_id}. Return to "
@@ -289,7 +289,7 @@ def like_message(message_id):
     )
 
 
-@app.route("/table/new-message")
+@app.route("/tables/new-message")
 def new_message():
     return (
         'Here is the new message page. Return to <a href="/tables">table</a>.'
