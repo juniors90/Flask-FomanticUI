@@ -4,6 +4,7 @@
 [![codecov](https://codecov.io/gh/juniors90/Flask-FomanticUI/branch/main/graph/badge.svg?token=YNCV9C9GIG)](https://codecov.io/gh/juniors90/Flask-FomanticUI)
 ![docstr-cov](https://img.shields.io/endpoint?url=https://jsonbin.org/juniors90/Flask-FomanticUI/badges/docstr-cov)
 ![PyPI](https://img.shields.io/pypi/v/Flask-FomanticUI?logoColor=green)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/Flask-FomanticUI)
 [![Documentation Status](https://readthedocs.org/projects/flask-fomanticui/badge/?version=latest)](https://flask-fomanticui.readthedocs.io/en/latest/?badge=latest)
 [![Forks](https://img.shields.io/github/forks/juniors90/Flask-FomanticUI)](https://github.com/juniors90/Flask-FomanticUI/stargazers)
 [![star](https://img.shields.io/github/stars/juniors90/Flask-FomanticUI?color=yellow)](https://github.com/juniors90/Flask-FomanticUI/network/members)
